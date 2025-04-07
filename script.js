@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="form-column">
                     <div>
                         <label>Sub Total: $</label>
-                        <input type="text" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0,00">
+                        <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0.00">
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="form-row">
                 <div class="form-column">
                     <label for="workforceSubTotal">Sub Total (USD):</label>
-                    <input type="text" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly value="0,00">
+                    <input type="text" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly value="0.00">
                 </div>
             </div>
         `;
