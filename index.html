@@ -1,227 +1,75 @@
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Service Order Form</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con Cálculos Dinámicos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <form id="myForm" action="https://formsubmit.co/pietrogiordanoc@gmail.com" method="POST"
-    enctype="multipart/form-data">
-    <h2>Service Order</h2>
+    <h1>Formulario de Cálculos</h1>
+    <form id="calculation-form">
+        <h3>Equipos</h3>
+        <table id="equipment-table">
+            <thead>
+                <tr>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="equipment-row">
+                    <td><input type="number" class="quantity-input" value="0"></td>
+                    <td><input type="number" class="price-input" value="0"></td>
+                    <td class="subtotal">0.00</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <div class="form-row">
-      <div class="form-column">
-        <!-- Customer and Service Information -->
-        <label for="date">Date*:</label>
-        <input type="date" id="date" name="date" required>
+        <h3>Partes</h3>
+        <table id="parts-table">
+            <thead>
+                <tr>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="part-row">
+                    <td><input type="number" class="quantity-input" value="0"></td>
+                    <td><input type="number" class="price-input" value="0"></td>
+                    <td class="subtotal">0.00</td>
+                </tr>
+            </tbody>
+        </table>
 
-        <label for="technician">Technician*:</label>
-        <input type="text" id="technician" name="technician" required>
+        <h3>Fuerza Laboral</h3>
+        <table id="labor-table">
+            <thead>
+                <tr>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="labor-row">
+                    <td><input type="number" class="quantity-input" value="0"></td>
+                    <td><input type="number" class="price-input" value="0"></td>
+                    <td class="labor-subtotal">0.00</td>
+                </tr>
+            </tbody>
+        </table>
 
-        <label for="customerName">Customer Name*:</label>
-        <input type="text" id="customerName" name="customerName" required>
+        <h3>Total General</h3>
+        <div id="total">0.00</div>
+    </form>
 
-        <label for="customerEmail">Customer Email:</label>
-        <input type="email" id="customerEmail" name="customerEmail">
+    <button id="add-part-row">Agregar Fila de Parte</button>
+    <button id="add-labor-row">Agregar Fila de Fuerza Laboral</button>
 
-      </div>
-
-      <div class="form-column">
-        <label for="techEmail">Tech Email*:</label>
-        <input type="email" id="techEmail" name="techEmail" required>
-
-        <label for="salesManagerEmail">Sales Manager Email*:</label>
-        <input type="email" id="salesManagerEmail" name="salesManagerEmail" required>
-
-        <label>Property*:</label>
-        <div>
-          <input type="radio" id="pld" name="property" value="PLD" required>
-          <label for="pld">PLD</label>
-
-          <input type="radio" id="laColombe" name="property" value="La Colombe">
-          <label for="laColombe">La Colombe</label>
-
-          <input type="radio" id="owner" name="property" value="Owner">
-          <label for="owner">Owner</label>
-        </div>
-
-        <label>Service Type:</label>
-        <div>
-          <input type="checkbox" id="delivery" name="serviceType" value="Delivery">
-          <label for="delivery">Delivery</label>
-
-          <input type="checkbox" id="pickup" name="serviceType" value="Pick up">
-          <label for="pickup">Pick up</label>
-
-          <input type="checkbox" id="service" name="serviceType" value="Service">
-          <label for="service">Service</label>
-
-          <input type="checkbox" id="tuneup" name="serviceType" value="Tune up">
-          <label for="tuneup">Tune up</label>
-
-          <input type="checkbox" id="training" name="serviceType" value="Training">
-          <label for="training">Training</label>
-
-          <input type="checkbox" id="other" name="serviceType" value="Other">
-          <label for="other">Other</label>
-        </div>
-      </div>
-    </div>
-
-    <!-- Visual Separation -->
-    <div class="section-divider"></div>
-
-    <h3>Equipment</h3>
-
-    <div class="equipment-section">
-      <div class="equipment">
-        <div class="form-row">
-          <div class="form-column">
-            <label for="equipmentType">Equipment Type:</label>
-            <select id="equipmentType" name="equipmentType[]">
-              <option value="espresso">Espresso Coffee Equipment</option>
-              <option value="coffeeMachine">Coffee Machine</option>
-              <option value="coffeeGrinder">Coffee Grinder</option>
-              <option value="dripCoffee">Drip Coffee</option>
-              <option value="dripBrewer">Drip Brewer</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-column">
-            <label for="equipmentBrandModel">Brand & Model:</label>
-            <input type="text" id="equipmentBrandModel" name="equipmentBrandModel[]">
-          </div>
-          <div class="form-column">
-            <label for="equipmentSerialNumber">Serial Number:</label>
-            <input type="text" id="equipmentSerialNumber" name="equipmentSerialNumber[]">
-          </div>
-        </div>
-      </div>
-      <button type="button" class="add-equipment">Add more Equipment</button>
-    </div>
-
-    <!-- Visual Separation -->
-    <div class="section-divider"></div>
-
-    <h3>Parts</h3>
-    <div class="parts">
-      <div class="part-row">
-        <div class="form-row">
-          <div class="form-column">
-            <label>Part Number:</label>
-            <input type="text" class="partNumber" name="partNumber[]">
-          </div>
-          <div class="form-column">
-            <label>Description:</label>
-            <input type="text" class="partDescription" name="partDescription[]">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-column">
-            <div class="qt-price-row">
-              <div>
-                <label>Qt:</label>
-                <input type="number" name="partQt[]" min="0" class="partQt" value="0">
-              </div>
-              <div>
-                <label>Unit Price: $</label>
-                <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice" value="0">
-              </div>
-            </div>
-          </div>
-          <div class="form-column">
-            <div>
-              <label>Sub Total: $</label>
-              <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0.00">
-            </div>
-          </div>
-        </div>
-      </div>
-      <button type="button" class="add-part">Add more Parts</button>
-    </div>
-
-    <h3>Parts Total</h3>
-    <div>
-      <label for="partsTotal">Parts Total: $</label>
-      <input type="number" id="partsTotal" name="partsTotal" step="0.01" class="partsTotal" readonly value="0.00">
-    </div>
-
-    <!-- Visual Separation -->
-    <div class="section-divider"></div>
-
-    <!-- Workforce -->
-    <h3>Workforce</h3>
-    <div class="workforce">
-      <div class="workforce-row">
-        <div class="form-row">
-          <div class="form-column">
-            <label for="workforceHrs">Hrs:</label>
-            <input type="number" id="workforceHrs" name="workforceHrs[]" min="0" class="workforceHrs" value="0">
-          </div>
-          <div class="form-column">
-            <label for="workforcePriceHr">Price/Hr (USD):</label>
-            <input type="number" id="workforcePriceHr" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr"
-              value="0">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-column">
-            <label for="workforceSubTotal">Sub Total (USD):</label>
-            <input type="number" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01"
-              class="workforceSubTotal" readonly value="0.00">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-column">
-            <label for="workforceNotes">Notes:</label>
-            <input type="text" id="workforceNotes" name="workforceNotes[]">
-          </div>
-        </div>
-      </div>
-      <button type="button" class="add-workforce">Add more</button>
-    </div>
-
-    <div>
-      <label for="grandTotal"><strong>Grand Total (USD):</strong></label>
-      <input type="number" id="grandTotal" name="grandTotal" step="0.01" readonly value="0.00">
-    </div>
-
-    <!-- Visual Separation -->
-    <div class="section-divider"></div>
-
-    <div class="form-row">
-      <div class="form-column">
-        <label for="attachment">Photos*:</label>
-        <input type="file" id="attachment" name="attachment" multiple accept="image/*" capture="environment"
-          required>
-      </div>
-      <div class="form-column">
-        <label for="jobDescription">Nature of labor performed (Job Description)*:</label>
-        <textarea id="jobDescription" name="jobDescription" required></textarea>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-column">
-        <label for="customerSignature">Customer Signature*:</label>
-        <input type="text" id="customerSignature" name="customerSignature" required>
-      </div>
-      <div class="form-column">
-        <label for="printName">Print Name*:</label>
-        <input type="text" id="printName" name="printName" required>
-      </div>
-    </div>
-
-    <input type="hidden" name="_next" value="https://example.com/thank-you.html">
-    <input type="hidden" name="_subject" value="New submission!">
-    <button type="submit" class="submit-btn">Submit</button>
-  </form>
+    <script src="script.js"></script>
 </body>
-
 </html>
