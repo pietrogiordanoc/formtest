@@ -1,20 +1,21 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Service Order Form</title>
-  <link rel="stylesheet" href="style.css?v=1" />
+  <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
 </head>
 
 <body>
-  <form id="myForm" action="https://formsubmit.co/pietrogiordanoc@gmail.com" method="POST" enctype="multipart/form-data">
+  <form id="myForm" action="https://formsubmit.co/pietrogiordanoc@gmail.com" method="POST"
+    enctype="multipart/form-data">
     <h2>Service Order</h2>
 
     <div class="form-row">
       <div class="form-column">
+        <!-- Customer and Service Information -->
         <label for="date">Date*:</label>
         <input type="date" id="date" name="date" required>
 
@@ -26,6 +27,7 @@
 
         <label for="customerEmail">Customer Email:</label>
         <input type="email" id="customerEmail" name="customerEmail">
+
       </div>
 
       <div class="form-column">
@@ -70,9 +72,11 @@
       </div>
     </div>
 
+    <!-- Visual Separation -->
     <div class="section-divider"></div>
 
     <h3>Equipment</h3>
+
     <div class="equipment-section">
       <div class="equipment">
         <div class="form-row">
@@ -88,7 +92,6 @@
             </select>
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-column">
             <label for="equipmentBrandModel">Brand & Model:</label>
@@ -100,10 +103,10 @@
           </div>
         </div>
       </div>
-
       <button type="button" class="add-equipment">Add more Equipment</button>
     </div>
 
+    <!-- Visual Separation -->
     <div class="section-divider"></div>
 
     <h3>Parts</h3>
@@ -119,7 +122,6 @@
             <input type="text" class="partDescription" name="partDescription[]">
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-column">
             <div class="qt-price-row">
@@ -150,8 +152,10 @@
       <input type="number" id="partsTotal" name="partsTotal" step="0.01" class="partsTotal" readonly value="0.00">
     </div>
 
+    <!-- Visual Separation -->
     <div class="section-divider"></div>
 
+    <!-- Workforce -->
     <h3>Workforce</h3>
     <div class="workforce">
       <div class="workforce-row">
@@ -162,17 +166,17 @@
           </div>
           <div class="form-column">
             <label for="workforcePriceHr">Price/Hr (USD):</label>
-            <input type="number" id="workforcePriceHr" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr" value="0">
+            <input type="number" id="workforcePriceHr" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr"
+              value="0">
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-column">
             <label for="workforceSubTotal">Sub Total (USD):</label>
-            <input type="number" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly value="0.00">
+            <input type="number" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01"
+              class="workforceSubTotal" readonly value="0.00">
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-column">
             <label for="workforceNotes">Notes:</label>
@@ -188,14 +192,15 @@
       <input type="number" id="grandTotal" name="grandTotal" step="0.01" readonly value="0.00">
     </div>
 
+    <!-- Visual Separation -->
     <div class="section-divider"></div>
 
     <div class="form-row">
       <div class="form-column">
         <label for="attachment">Photos*:</label>
-        <input type="file" id="attachment" name="attachment" multiple accept="image/*" capture="environment" required>
+        <input type="file" id="attachment" name="attachment" multiple accept="image/*" capture="environment"
+          required>
       </div>
-
       <div class="form-column">
         <label for="jobDescription">Nature of labor performed (Job Description)*:</label>
         <textarea id="jobDescription" name="jobDescription" required></textarea>
@@ -207,7 +212,6 @@
         <label for="customerSignature">Customer Signature*:</label>
         <input type="text" id="customerSignature" name="customerSignature" required>
       </div>
-
       <div class="form-column">
         <label for="printName">Print Name*:</label>
         <input type="text" id="printName" name="printName" required>
@@ -216,7 +220,6 @@
 
     <input type="hidden" name="_next" value="https://example.com/thank-you.html">
     <input type="hidden" name="_subject" value="New submission!">
-
     <button type="submit" class="submit-btn">Submit</button>
   </form>
 </body>
