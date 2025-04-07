@@ -18,7 +18,7 @@
             max-width: 800px;
             margin: 0 auto;
         }
-        h2 {
+        h2, h3 {
             color: #337ab7;
             margin-top: 0;
             margin-bottom: 20px;
@@ -40,7 +40,10 @@
         input[type="text"],
         input[type="email"],
         input[type="date"],
-        select {
+        input[type="number"],
+        select,
+        textarea,
+        input[type="file"] {
             width: calc(100% - 12px);
             padding: 8px;
             border: 1px solid #ccc;
@@ -73,13 +76,67 @@
             color: red;
             margin-left: 5px;
         }
+        .equipment-section, .parts, .workforce {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .equipment, .part-row, .workforce-row {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .equipment:last-child, .part-row:last-child, .workforce-row:last-child {
+            border-bottom: none;
+        }
+        .add-equipment, .add-part, .add-workforce, .submit-btn {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+        .add-equipment:hover, .add-part:hover, .add-workforce:hover, .submit-btn:hover {
+            background-color: #4cae4c;
+        }
+        .qt-price-row {
+            display: flex;
+            gap: 10px;
+        }
+        .qt-price-row > div {
+            flex: 1;
+        }
+        .partSubTotal-container, .workforceSubTotal-container {
+            margin-top: 10px;
+        }
+        .grand-total-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #eee;
+            border-radius: 4px;
+            text-align: right;
+            font-size: 1.1em;
+        }
+        .grand-total-section strong {
+            font-weight: bold;
+        }
+        .grand-total-section input[type="text"] {
+            width: auto;
+            display: inline-block;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="cf103-header">CF103</div>
         <h2>Service Order</h2>
-        <form id="serviceOrderForm">
+        <form id="myForm" action="https://formsubmit.co/pietrogiordanoc@gmail.com" method="POST" enctype="multipart/form-data">
             <div class="form-row">
                 <div class="form-column">
                     <label for="date" class="required">Date:</label>
@@ -143,7 +200,190 @@
                     </div>
                 </div>
             </div>
+
+            <div class="section-divider"></div>
+
+            <h3>Equipment</h3>
+            <div class="equipment-section">
+                <div class="equipment">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <label for="equipmentType">Equipment Type:</label>
+                            <select id="equipmentType" name="equipmentType[]">
+                                <option value="espresso">Espresso Coffee Equipment</option>
+                                <option value="coffeeMachine">Coffee Machine</option>
+                                <option value="coffeeGrinder">Coffee Grinder</option>
+                                <option value="dripCoffee">Drip Coffee</option>
+                                <option value="dripBrewer">Drip Brewer</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-column">
+                            <label for="equipmentBrandModel">Brand & Model:</label>
+                            <input type="text" id="equipmentBrandModel" name="equipmentBrandModel[]">
+                        </div>
+                        <div class="form-column">
+                            <label for="equipmentSerialNumber">Serial Number:</label>
+                            <input type="text" id="equipmentSerialNumber" name="equipmentSerialNumber[]">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-equipment">Add more Equipment</button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h3>Parts</h3>
+            <div class="parts">
+                <div class="part-row">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <label>Part Number:</label>
+                            <input type="text" class="partNumber" name="partNumber[]">
+                        </div>
+                        <div class="form-column">
+                            <label>Description:</label>
+                            <input type="text" class="partDescription" name="partDescription[]">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-column">
+                            <div class="qt-price-row">
+                                <div>
+                                    <label>Qt:</label>
+                                    <input type="number" name="partQt[]" min="0" class="partQt" value="0">
+                                </div>
+                                <div>
+                                    <label>Unit Price: $</label>
+                                    <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice" value="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-column">
+                            <div class="partSubTotal-container">
+                                <label>Sub Total: $</label>
+                                <input type="text" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0.00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-part">Add more Parts</button>
+            </div>
+
+            <h3>Parts Total</h3>
+            <div>
+                <label for="partsTotal"><strong>Parts Total:</strong> $</label>
+                <input type="text" id="partsTotal" name="partsTotal" step="0.01" class="partsTotal" readonly value="0.00">
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h3>Workforce</h3>
+            <div class="workforce">
+                <div class="workforce-row">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <label for="workforceHrs">Hrs:</label>
+                            <input type="number" id="workforceHrs" name="workforceHrs[]" min="0" class="workforceHrs" value="0">
+                        </div>
+                        <div class="form-column">
+                            <label for="workforcePriceHr">Price/Hr (USD):</label>
+                            <input type="number" id="workforcePriceHr" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr" value="0">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-column">
+                            <div class="workforceSubTotal-container">
+                                <label for="workforceSubTotal">Sub Total (USD):</label>
+                                <input type="text" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly value="0.00">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-column">
+                            <label for="workforceNotes">Notes:</label>
+                            <input type="text" id="workforceNotes" name="workforceNotes[]">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-workforce">Add more</button>
+            </div>
+
+            <div class="grand-total-section">
+                <label for="grandTotal"><strong>Grand Total (USD):</strong></label>
+                <input type="text" id="grandTotal" name="grandTotal" step="0.01" readonly value="0.00">
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="attachment" class="required">Photos:</label>
+                    <input type="file" id="attachment" name="attachment" multiple accept="image/*" capture="environment" required>
+                </div>
+                <div class="form-column">
+                    <label for="jobDescription" class="required">Nature of labor performed (Job Description):</label>
+                    <textarea id="jobDescription" name="jobDescription" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="customerSignature" class="required">Customer Signature:</label>
+                    <input type="text" id="customerSignature" name="customerSignature" required>
+                </div>
+                <div class="form-column">
+                    <label for="printName" class="required">Print Name:</label>
+                    <input type="text" id="printName" name="printName" required>
+                </div>
+            </div>
+
+            <input type="hidden" name="_next" value="https://example.com/thank-you.html">
+            <input type="hidden" name="_subject" value="New submission!">
+            <button type="submit" class="submit-btn">Submit</button>
         </form>
     </div>
-</body>
-</html>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const partsSection = document.querySelector('.parts');
+            const addPartButton = document.querySelector('.add-part');
+            const workforceSection = document.querySelector('.workforce');
+            const addWorkforceButton = document.querySelector('.add-workforce');
+            const equipmentSection = document.querySelector('.equipment-section');
+            const addEquipmentButton = document.querySelector('.add-equipment');
+
+            function calculateTotals() {
+                let partsTotal = 0;
+                document.querySelectorAll('.part-row').forEach(row => {
+                    const qtInput = row.querySelector('.partQt');
+                    const unitPriceInput = row.querySelector('.partUnitPrice');
+                    const subTotalInput = row.querySelector('.partSubTotal');
+                    if (qtInput && unitPriceInput && subTotalInput) {
+                        const qt = parseFloat(qtInput.value) || 0;
+                        const unitPrice = parseFloat(unitPriceInput.value) || 0;
+                        const subTotal = qt * unitPrice;
+                        subTotalInput.value = subTotal.toFixed(2);
+                        partsTotal += subTotal;
+                    }
+                });
+                document.querySelector('.partsTotal').value = partsTotal.toFixed(2);
+
+                let workforceTotal = 0;
+                document.querySelectorAll('.workforce-row').forEach(row => {
+                    const hrsInput = row.querySelector('.workforceHrs');
+                    const priceHrInput = row.querySelector('.workforcePriceHr');
+                    const subTotalInput = row.querySelector('.workforceSubTotal');
+                    if (hrsInput && priceHrInput && subTotalInput) {
+                        const hrs = parseFloat(hrsInput.value) || 0;
+                        const priceHr = parseFloat(priceHrInput.value) || 0;
+                        const subTotal = hrs * priceHr;
+                        subTotalInput.value = subTotal.toFixed(2);
+                        workforceTotal += subTotal;
+                    }
+                });
+
+                const grandTotal = partsTotal + workforceTotal;
+                document.
