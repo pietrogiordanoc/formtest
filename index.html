@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Service Order Form</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script> <!-- Referencia al archivo JavaScript -->
 </head>
 <body>
     <form id="myForm" action="https://formsubmit.co/pietrogiordanoc@gmail.com" method="POST" enctype="multipart/form-data">
@@ -66,7 +67,6 @@
             </div>
 
             <div class="form-column">
-                <!-- Equipos -->
                 <h3>Espresso Coffee Equipment</h3>
                 <div class="equipment">
                     <div>
@@ -80,33 +80,6 @@
                     <button type="button" class="add-equipment">Add more</button>
                 </div>
 
-                <h3>Coffee Grinder</h3>
-                <div class="grinder">
-                    <div>
-                        <label for="grinderBrandModel">Grinder Brand & Model:</label>
-                        <input type="text" id="grinderBrandModel" name="grinderBrandModel[]">
-                    </div>
-                    <div>
-                        <label for="grinderSerialNumber">Serial Number:</label>
-                        <input type="text" id="grinderSerialNumber" name="grinderSerialNumber[]">
-                    </div>
-                    <button type="button" class="add-grinder">Add more</button>
-                </div>
-
-                <h3>Drip Coffee Equipment</h3>
-                <div class="drip">
-                    <div>
-                        <label for="dripBrewerBrandModel">Drip Brewer Brand & Model:</label>
-                        <input type="text" id="dripBrewerBrandModel" name="dripBrewerBrandModel[]">
-                    </div>
-                    <div>
-                        <label for="dripBrewerSerialNumber">Drip Brewer Serial Number:</label>
-                        <input type="text" id="dripBrewerSerialNumber" name="dripBrewerSerialNumber[]">
-                    </div>
-                    <button type="button" class="add-drip">Add more</button>
-                </div>
-
-                <!-- PARTS corregido -->
                 <h3>Parts</h3>
                 <div class="parts">
                     <div class="part-row">
@@ -197,86 +170,5 @@
         <input type="hidden" name="_subject" value="New submission!">
         <button type="submit">Submit</button>
     </form>
-
-    <!-- SCRIPT -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const partsContainer = document.querySelector('.parts');
-            const addPartButton = document.querySelector('.add-part');
-            const partsTotalInput = document.getElementById('partsTotal');
-
-            function calculatePartSubtotal(partDiv) {
-                const qtInput = partDiv.querySelector('.partQt');
-                const unitPriceInput = partDiv.querySelector('.partUnitPrice');
-                const subTotalInput = partDiv.querySelector('.partSubTotal');
-
-                const qt = parseFloat(qtInput.value) || 0;
-                const unitPrice = parseFloat(unitPriceInput.value) || 0;
-                const subTotal = qt * unitPrice;
-
-                subTotalInput.value = subTotal.toFixed(2);
-            }
-
-            function calculatePartsTotal() {
-                let total = 0;
-                const subTotalInputs = partsContainer.querySelectorAll('.partSubTotal');
-                subTotalInputs.forEach(input => {
-                    total += parseFloat(input.value) || 0;
-                });
-                partsTotalInput.value = total.toFixed(2);
-            }
-
-            function setupPartRowListeners(partDiv) {
-                const qtInput = partDiv.querySelector('.partQt');
-                const unitPriceInput = partDiv.querySelector('.partUnitPrice');
-
-                const onChange = () => {
-                    calculatePartSubtotal(partDiv);
-                    calculatePartsTotal();
-                };
-
-                qtInput.addEventListener('input', onChange);
-                unitPriceInput.addEventListener('input', onChange);
-            }
-
-            // Setup listeners on the first row
-            const initialPartRow = partsContainer.querySelector('.part-row');
-            if (initialPartRow) {
-                setupPartRowListeners(initialPartRow);
-            }
-
-            // Add new part row
-            addPartButton.addEventListener('click', function () {
-                const newPartDiv = document.createElement('div');
-                newPartDiv.classList.add('part-row');
-                newPartDiv.innerHTML = `
-                    <div>
-                        <label>Part Number:</label>
-                        <input type="text" class="partNumber" name="partNumber[]">
-                    </div>
-                    <div>
-                        <label>Description:</label>
-                        <input type="text" class="partDescription" name="partDescription[]">
-                    </div>
-                    <div class="qt-price-row">
-                        <div>
-                            <label>Qt:</label>
-                            <input type="number" name="partQt[]" min="0" class="partQt" value="0">
-                        </div>
-                        <div>
-                            <label>Unit Price: $</label>
-                            <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice" value="0">
-                        </div>
-                    </div>
-                    <div>
-                        <label>Sub Total: $</label>
-                        <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0.00">
-                    </div>
-                `;
-                partsContainer.insertBefore(newPartDiv, addPartButton);
-                setupPartRowListeners(newPartDiv);
-            });
-        });
-    </script>
 </body>
 </html>
