@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -95,31 +94,30 @@
             </div>
 
             <div class="form-column">
-                <h3>Espresso Coffee Equipment</h3>
-                <div class="equipment">
-                    <div>
-                        <label for="espressoBrandModel">Espresso Brand & Model:</label>
-                        <input type="text" id="espressoBrandModel" name="espressoBrandModel[]">
+                <h3>Equipment</h3>
+                <div class="equipment-section">
+                    <div class="equipment">
+                        <div>
+                            <label for="equipmentType">Equipment Type:</label>
+                            <select id="equipmentType" name="equipmentType[]">
+                                <option value="espresso">Espresso Coffee Equipment</option>
+                                <option value="coffeeMachine">Coffee Machine</option>
+                                <option value="coffeeGrinder">Coffee Grinder</option>
+                                <option value="dripCoffee">Drip Coffee</option>
+                                <option value="dripBrewer">Drip Brewer</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="equipmentBrandModel">Brand & Model:</label>
+                            <input type="text" id="equipmentBrandModel" name="equipmentBrandModel[]">
+                        </div>
+                        <div>
+                            <label for="equipmentSerialNumber">Serial Number:</label>
+                            <input type="text" id="equipmentSerialNumber" name="equipmentSerialNumber[]">
+                        </div>
                     </div>
-                    <div>
-                        <label for="espressoSerialNumber">Serial Number:</label>
-                        <input type="text" id="espressoSerialNumber" name="espressoSerialNumber[]">
-                    </div>
-                    <button type="button" class="add-equipment">Add more</button>
-                </div>
-
-                <!-- Agregar más opciones de máquina -->
-                <h3>Coffee Machines</h3>
-                <div class="equipment">
-                    <div>
-                        <label for="coffeeMachineBrandModel">Coffee Machine Brand & Model:</label>
-                        <input type="text" id="coffeeMachineBrandModel" name="coffeeMachineBrandModel[]">
-                    </div>
-                    <div>
-                        <label for="coffeeMachineSerialNumber">Serial Number:</label>
-                        <input type="text" id="coffeeMachineSerialNumber" name="coffeeMachineSerialNumber[]">
-                    </div>
-                    <button type="button" class="add-equipment">Add more</button>
+                    <button type="button" class="add-equipment">Add more Equipment</button>
                 </div>
 
                 <h3>Parts</h3>
