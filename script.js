@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
     const workforceContainer = document.querySelector('.workforce');
     const addWorkforceButton = document.querySelector('.add-workforce');
-    const workforceSubTotalInputs = document.querySelectorAll('.workforceSubTotal');
-
+    const grandTotalInput = document.getElementById('grandTotal');
+    
     // Calcular el subtotal de los repuestos
     function calculatePartSubtotal(partDiv) {
         const qtInput = partDiv.querySelector('.partQt');
@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
         subTotalInputs.forEach(input => {
             total += parseFloat(input.value) || 0;
         });
-        const grandTotalInput = document.getElementById('grandTotal');
         grandTotalInput.value = total.toFixed(2);
     }
 
@@ -132,12 +131,12 @@ document.addEventListener('DOMContentLoaded', function () {
         newWorkforceDiv.classList.add('workforce-row');
         newWorkforceDiv.innerHTML = `
             <div>
-                <label>Hrs:</label>
-                <input type="number" name="workforceHrs[]" min="0" class="workforceHrs" value="0">
-            </div>
-            <div>
                 <label>Notes:</label>
                 <input type="text" name="workforceNotes[]">
+            </div>
+            <div>
+                <label>Hrs:</label>
+                <input type="number" name="workforceHrs[]" min="0" class="workforceHrs" value="0">
             </div>
             <div>
                 <label>Price/Hr (USD):</label>
