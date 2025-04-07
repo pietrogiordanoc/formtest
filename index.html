@@ -59,4 +59,30 @@
             </div>
             <div class="workforce-row">
                 <label for="workforceSubTotal">Sub Total (USD):</label>
-                <input type="number" name="workforceSubTotal[]" step="0.
+                <input type="number" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly>
+            </div>
+            <button type="button" class="add-workforce">Agregar Fuerza Laboral</button>
+        </div>
+
+        <!-- Totales -->
+        <div class="totals">
+            <div class="total-row">
+                <label for="partsTotal">Total de Partes:</label>
+                <input type="number" id="partsTotal" step="0.01" readonly>
+            </div>
+            <div class="total-row">
+                <label for="workforceTotal">Total de Fuerza Laboral:</label>
+                <input type="number" id="workforceTotal" step="0.01" readonly>
+            </div>
+            <div class="total-row">
+                <label for="grandTotal">Total General:</label>
+                <input type="number" id="grandTotal" step="0.01" readonly>
+            </div>
+        </div>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>
