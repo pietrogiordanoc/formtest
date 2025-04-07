@@ -1,105 +1,77 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // ========== PARTES ========== 
     const partsContainer = document.querySelector('.parts');
     const addPartButton = document.querySelector('.add-part');
     const partsTotalInput = document.getElementById('partsTotal');
 
     function calculatePartSubtotal(partDiv) {
-        const qt = parseFloat(partDiv.querySelector('.partQt').value) || 0;
-        const price = parseFloat(partDiv.querySelector('.partUnitPrice').value) || 0;
-        const subtotal = qt * price;
-        partDiv.querySelector('.partSubTotal').value = subtotal.toFixed(2);
+        const qtInput = partDiv.querySelector('.partQt');
+        const unitPriceInput = partDiv.querySelector('.partUnitPrice');
+        const subTotalInput = partDiv.querySelector('.partSubTotal');
+
+        const qt = parseFloat(qtInput.value) || 0;
+        const unitPrice = parseFloat(unitPriceInput.value) || 0;
+        const subTotal = qt * unitPrice;
+
+        subTotalInput.value = subTotal.toFixed(2);
     }
 
     function calculatePartsTotal() {
         let total = 0;
-        partsContainer.querySelectorAll('.partSubTotal').forEach(input => {
+        const subTotalInputs = partsContainer.querySelectorAll('.partSubTotal');
+        subTotalInputs.forEach(input => {
             total += parseFloat(input.value) || 0;
         });
         partsTotalInput.value = total.toFixed(2);
-        calculateGrandTotal();
     }
 
-    function setupPartListeners(partDiv) {
-        partDiv.querySelector('.partQt').addEventListener('input', () => {
+    function setupPartRowListeners(partDiv) {
+        const qtInput = partDiv.querySelector('.partQt');
+        const unitPriceInput = partDiv.querySelector('.partUnitPrice');
+
+        const onChange = () => {
             calculatePartSubtotal(partDiv);
             calculatePartsTotal();
-        });
-        partDiv.querySelector('.partUnitPrice').addEventListener('input', () => {
-            calculatePartSubtotal(partDiv);
-            calculatePartsTotal();
-        });
+        };
+
+        qtInput.addEventListener('input', onChange);
+        unitPriceInput.addEventListener('input', onChange);
     }
 
-    addPartButton.addEventListener('click', () => {
+    // Setup listeners on the first row
+    const initialPartRow = partsContainer.querySelector('.part-row');
+    if (initialPartRow) {
+        setupPartRowListeners(initialPartRow);
+    }
+
+    // Add new part row
+    addPartButton.addEventListener('click', function () {
         const newPartDiv = document.createElement('div');
-        newPartDiv.classList.add('part');
+        newPartDiv.classList.add('part-row');
         newPartDiv.innerHTML = `
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="partNumber">Part Number:</label>
-                    <input type="text" name="partNumber[]">
-                </div>
-                <div class="form-column">
-                    <label for="partDescription">Descripción:</label>
-                    <input type="text" name="partDescription[]">
-                </div>
+            <div>
+                <label>Part Number:</label>
+                <input type="text" class="partNumber" name="partNumber[]">
+            </div>
+            <div>
+                <label>Description:</label>
+                <input type="text" class="partDescription" name="partDescription[]">
             </div>
             <div class="qt-price-row">
-                <div class="form-column">
-                    <label for="partQt">Cantidad:</label>
-                    <input type="number" name="partQt[]" min="0" class="partQt">
+                <div>
+                    <label>Qt:</label>
+                    <input type="number" name="partQt[]" min="0" class="partQt" value="0">
                 </div>
-                <div class="form-column">
-                    <label for="partUnitPrice">Precio Unitario:</label>
-                    <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice">
+                <div>
+                    <label>Unit Price: $</label>
+                    <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice" value="0">
                 </div>
             </div>
-            <div class="form-row">
-                <label for="partSubTotal">Sub Total:</label>
-                <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly>
+            <div>
+                <label>Sub Total: $</label>
+                <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0.00">
             </div>
         `;
         partsContainer.insertBefore(newPartDiv, addPartButton);
-        setupPartListeners(newPartDiv);
+        setupPartRowListeners(newPartDiv);
     });
-
-    // ========== FUERZA LABORAL ========== 
-    const workforceContainer = document.querySelector('.workforce');
-    const addWorkforceBtn = document.querySelector('.add-workforce');
-    const workforceTotalInput = document.getElementById('workforceTotal');
-
-    function calculateWorkforceSubtotal(row) {
-        const hrs = parseFloat(row.querySelector('.workforceHrs').value) || 0;
-        const price = parseFloat(row.querySelector('.workforcePriceHr').value) || 0;
-        const subtotal = hrs * price;
-        row.querySelector('.workforceSubTotal').value = subtotal.toFixed(2);
-    }
-
-    function calculateWorkforceTotal() {
-        let total = 0;
-        workforceContainer.querySelectorAll('.workforceSubTotal').forEach(input => {
-            total += parseFloat(input.value) || 0;
-        });
-        workforceTotalInput.value = total.toFixed(2);
-        calculateGrandTotal();
-    }
-
-    function setupWorkforceRow(row) {
-        row.querySelector('.workforceHrs').addEventListener('input', () => {
-            calculateWorkforceSubtotal(row);
-            calculateWorkforceTotal();
-        });
-        row.querySelector('.workforcePriceHr').addEventListener('input', () => {
-            calculateWorkforceSubtotal(row);
-            calculateWorkforceTotal();
-        });
-    }
-
-    addWorkforceBtn.addEventListener('click', () => {
-        const newRow = document.createElement('div');
-        newRow.classList.add('workforce-row');
-        newRow.innerHTML = `
-            <div class="workforce-row">
-                <label for="workforceHrs">Horas:</label>
-                <input
+});
