@@ -7,47 +7,136 @@
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
   <style>
-  /* Additional styles */
-  .section-divider {
-  height: 10px;
-  background-color: #f2a1a1; /* Soft red banner */
-  margin: 20px 0;
+  body {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align form to the top */
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  padding-top: 20px; /* Add some top padding */
   }
-  .add-part, .add-workforce, .add-equipment-selectable, .submit-btn, .delete-equipment {
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
+
+  form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Adjust width */
+  max-width: 1000px;
+  }
+
+  h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  }
+
+  label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="number"],
+  textarea,
+  select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
   }
-  .add-part { background-color: #28a745; color: white; } /* Green */
-  .add-workforce { background-color: #007bff; color: white; } /* Blue */
-  .add-equipment-selectable { background-color: #ffc107; color: #212529; } /* Yellow */
-  .submit-btn { background-color: #00bcd4; color: white; } /* Light blue */
-  .delete-equipment { background-color: #dc3545; color: white; } /* Red */
+
+  input[type="radio"],
+  input[type="checkbox"] {
+  margin-right: 5px;
+  }
+
+  div > label {
+  display: inline;
+  font-weight: normal;
+  }
+
+  div {
+  margin-bottom: 10px;
+  }
+
+  button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  }
+
+  .add-part { background-color: #28a745; }
+  .add-workforce { background-color: #007bff; }
+  .add-equipment-selectable { background-color: #ffc107; color: #212529; }
+  .submit-btn { background-color: #00bcd4; width: 100%; }
+  .delete-equipment { background-color: #dc3545; color: white; padding: 8px 12px; }
+
+  .form-section {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  }
+
+  .form-section:last-child {
+  border-bottom: none;
+  }
+
   .form-row {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   }
+
   .form-column {
   flex: 1;
   padding-right: 10px;
   }
+
   .form-column:last-child {
   padding-right: 0;
   }
+
   .equipment-selectable-row {
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
   align-items: center;
   }
+
   .equipment-selectable-row > div {
   flex-grow: 1;
   }
+
   .qt-price-row {
   display: flex;
   gap: 10px;
+  }
+
+  .parts, .workforce, .equipments-selectable {
+  margin-top: 10px;
+  }
+
+  .part-row, .workforce-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+  }
+
+  .part-row > div, .workforce-row > div {
+  flex-grow: 1;
+  }
+
+  .part-row .qt-price-row {
+  flex-grow: 2; /* Give more space to quantity and price */
   }
   </style>
  </head>
@@ -55,6 +144,7 @@
   <form id="myForm" action="https://formsubmit.co/pietrogiordanoc@gmail.com" method="POST" enctype="multipart/form-data">
   <h2>Service Order</h2>
 
+  <div class="form-section">
   <div class="form-row">
   <div class="form-column">
   <label for="date">Date*:</label>
@@ -68,7 +158,8 @@
 
   <label for="customerEmail">Customer Email:</label>
   <input type="email" id="customerEmail" name="customerEmail">
-
+  </div>
+  <div class="form-column">
   <label for="techEmail">Tech Email*:</label>
   <input type="email" id="techEmail" name="techEmail" required>
 
@@ -87,22 +178,24 @@
 
   <label>Service Type:</label>
   <div>
-  <input type="checkbox" id="delivery" name="serviceType" value="Delivery">
+  <input type="checkbox" id="delivery" name="serviceType[]" value="Delivery">
   <label for="delivery">Delivery</label>
-  <input type="checkbox" id="pickup" name="serviceType" value="Pick up">
+  <input type="checkbox" id="pickup" name="serviceType[]" value="Pick up">
   <label for="pickup">Pick up</label>
-  <input type="checkbox" id="service" name="serviceType" value="Service">
+  <input type="checkbox" id="service" name="serviceType[]" value="Service">
   <label for="service">Service</label>
-  <input type="checkbox" id="tuneup" name="serviceType" value="Tune up">
+  <input type="checkbox" id="tuneup" name="serviceType[]" value="Tune up">
   <label for="tuneup">Tune up</label>
-  <input type="checkbox" id="training" name="serviceType" value="Training">
+  <input type="checkbox" id="training" name="serviceType[]" value="Training">
   <label for="training">Training</label>
-  <input type="checkbox" id="other" name="serviceType" value="Other">
+  <input type="checkbox" id="other" name="serviceType[]" value="Other">
   <label for="other">Other</label>
   </div>
   </div>
   </div>
+  </div>
 
+  <div class="form-section">
   <h3>Equipment</h3>
   <div class="equipments-selectable">
   <div class="equipment-selectable-row">
@@ -128,7 +221,9 @@
   </div>
   </div>
   <button type="button" class="add-equipment-selectable">Add another equipment</button>
+  </div>
 
+  <div class="form-section">
   <h3>Parts</h3>
   <div class="parts">
   <div class="part-row">
@@ -155,17 +250,12 @@
   <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0.00">
   </div>
   </div>
+  </div>
   <button type="button" class="add-part">Add more</button>
+  <h3>Parts Total: $<input type="number" id="partsTotal" name="partsTotal" step="0.01" readonly value="0.00"></h3>
   </div>
 
-  <h3>Parts Total</h3>
-  <div>
-  <label for="partsTotal">Parts Total: $</label>
-  <input type="number" id="partsTotal" name="partsTotal" step="0.01" class="partsTotal" readonly value="0.00">
-  </div>
-
-  <div class="section-divider"></div>
-
+  <div class="form-section">
   <h3>Workforce</h3>
   <div class="workforce">
   <div class="workforce-row">
@@ -175,32 +265,27 @@
   </div>
   <div>
   <label>Hrs:</label>
-  <input type="number" class="workforceHrs" name="workforceHrs[]" min="0" class="workforceHrs" value="0">
+  <input type="number" class="workforceHrs" name="workforceHrs[]" min="0" value="0">
   </div>
   <div>
   <label>Price/Hr (USD):</label>
-  <input type="number" class="workforcePriceHr" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr" value="0">
+  <input type="number" class="workforcePriceHr" name="workforcePriceHr[]" step="0.01" value="0">
   </div>
   <div>
   <label>Sub Total (USD):</label>
-  <input type="number" class="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly value="0.00">
+  <input type="number" class="workforceSubTotal" name="workforceSubTotal[]" step="0.01" readonly value="0.00">
+  </div>
   </div>
   </div>
   <button type="button" class="add-workforce">Add more</button>
+  <h3>Workforce Total (USD): $<input type="number" id="workforceTotal" name="workforceTotal" step="0.01" readonly value="0.00"></h3>
   </div>
 
-  <h3>Workforce Total (USD)</h3>
-  <div>
-  <label for="workforceTotal">Workforce Total (USD):</label>
-  <input type="number" id="workforceTotal" name="workforceTotal" step="0.01" readonly value="0.00">
+  <div class="form-section">
+  <h3>Grand Total (USD): $<input type="number" id="grandTotal" name="grandTotal" step="0.01" readonly value="0.00"></h3>
   </div>
 
-  <h3>Grand Total (USD)</h3>
-  <div>
-  <label for="grandTotal">Grand Total (USD):</label>
-  <input type="number" id="grandTotal" name="grandTotal" step="0.01" readonly>
-  </div>
-
+  <div class="form-section">
   <div class="form-row">
   <div class="form-column">
   <label for="attachment">Photos*:</label>
@@ -211,7 +296,9 @@
   <textarea id="jobDescription" name="jobDescription" required></textarea>
   </div>
   </div>
+  </div>
 
+  <div class="form-section">
   <div class="form-row">
   <div class="form-column">
   <label for="customerSignature">Customer Signature*:</label>
@@ -220,6 +307,7 @@
   <div class="form-column">
   <label for="printName">Print Name*:</label>
   <input type="text" id="printName" name="printName" required>
+  </div>
   </div>
   </div>
 
