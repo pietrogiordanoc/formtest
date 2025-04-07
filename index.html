@@ -1,203 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Order Form</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Service Order Form</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <form id="myForm" action="https://formsubmit.co/pietrogiordanoc@gmail.com" method="POST" enctype="multipart/form-data">
-        <h2>Service Order</h2>
+  <form id="myForm" action="https://formsubmit.co/pietrogiordanoc@gmail.com" method="POST" enctype="multipart/form-data">
+    <h2>Service Order</h2>
 
-        <div class="form-row">
-            <div class="form-column">
-                <label for="date">Date*:</label>
-                <input type="date" id="date" name="date" required>
+    <!-- ... puedes mantener el resto del formulario como lo tenías ... -->
 
-                <label for="technician">Technician*:</label>
-                <input type="text" id="technician" name="technician" required>
-
-                <label for="customerName">Customer Name*:</label>
-                <input type="text" id="customerName" name="customerName" required>
-
-                <label for="customerEmail">Customer Email:</label>
-                <input type="email" id="customerEmail" name="customerEmail">
-
-                <label for="techEmail">Tech Email*:</label>
-                <input type="email" id="techEmail" name="techEmail" required>
-
-                <label for="salesManagerEmail">Sales Manager Email*:</label>
-                <input type="email" id="salesManagerEmail" name="salesManagerEmail" required>
-
-                <label>Property*:</label>
-                <div>
-                    <input type="radio" id="pld" name="property" value="PLD" required>
-                    <label for="pld">PLD</label>
-
-                    <input type="radio" id="laColombe" name="property" value="La Colombe">
-                    <label for="laColombe">La Colombe</label>
-
-                    <input type="radio" id="owner" name="property" value="Owner">
-                    <label for="owner">Owner</label>
-                </div>
-
-                <label>Service Type:</label>
-                <div>
-                    <input type="checkbox" id="delivery" name="serviceType" value="Delivery">
-                    <label for="delivery">Delivery</label>
-
-                    <input type="checkbox" id="pickup" name="serviceType" value="Pick up">
-                    <label for="pickup">Pick up</label>
-
-                    <input type="checkbox" id="service" name="serviceType" value="Service">
-                    <label for="service">Service</label>
-
-                    <input type="checkbox" id="tuneup" name="serviceType" value="Tune up">
-                    <label for="tuneup">Tune up</label>
-
-                    <input type="checkbox" id="training" name="serviceType" value="Training">
-                    <label for="training">Training</label>
-
-                    <input type="checkbox" id="other" name="serviceType" value="Other">
-                    <label for="other">Other</label>
-                </div>
-            </div>
-            <div class="form-column">
-                <h3>Espresso Coffee Equipment</h3>
-                <div class="equipment">
-                    <div>
-                        <label for="espressoBrandModel">Espresso Brand & Model:</label>
-                        <input type="text" id="espressoBrandModel" name="espressoBrandModel[]">
-                    </div>
-                    <div>
-                        <label for="espressoSerialNumber">Serial Number:</label>
-                        <input type="text" id="espressoSerialNumber" name="espressoSerialNumber[]">
-                    </div>
-                    <button type="button" class="add-equipment">Add more</button>
-                </div>
-
-                <h3>Coffee Grinder</h3>
-                <div class="grinder">
-                    <div>
-                        <label for="grinderBrandModel">Grinder Brand & Model:</label>
-                        <input type="text" id="grinderBrandModel" name="grinderBrandModel[]">
-                    </div>
-                    <div>
-                        <label for="grinderSerialNumber">Serial Number:</label>
-                        <input type="text" id="grinderSerialNumber" name="grinderSerialNumber[]">
-                    </div>
-                    <button type="button" class="add-grinder">Add more</button>
-                </div>
-
-                <h3>Drip Coffee Equipment</h3>
-                <div class="drip">
-                    <div>
-                        <label for="dripBrewerBrandModel">Drip Brewer Brand & Model:</label>
-                        <input type="text" id="dripBrewerBrandModel" name="dripBrewerBrandModel[]">
-                    </div>
-                    <div>
-                        <label for="dripBrewerSerialNumber">Drip Brewer Serial Number:</label>
-                        <input type="text" id="dripBrewerSerialNumber" name="dripBrewerSerialNumber[]">
-                    </div>
-                    <button type="button" class="add-drip">Add more</button>
-                </div>
-
-               <h3>Parts</h3>
-<div class="parts">
-    <div class="part-row">
+    <!-- Parts Section -->
+    <h3>Parts</h3>
+    <div class="parts">
+      <div>
         <div>
-            <label>Part Number:</label>
-            <input type="text" class="partNumber" name="partNumber[]">
+          <label>Part Number:</label>
+          <input type="text" name="partNumber[]" />
         </div>
         <div>
-            <label>Description:</label>
-            <input type="text" class="partDescription" name="partDescription[]">
+          <label>Description:</label>
+          <input type="text" name="partDescription[]" />
         </div>
         <div class="qt-price-row">
-            <div>
-                <label>Qt:</label>
-                <input type="number" name="partQt[]" min="0" class="partQt" value="0">
-            </div>
-            <div>
-                <label>Unit Price: $</label>
-                <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice" value="0">
-            </div>
-        </div>
-        <div>
-            <label>Sub Total: $</label>
-            <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0.00">
-        </div>
-    </div>
-    <button type="button" class="add-part">Add more</button>
-</div>
-
-<h3>Parts Total</h3>
-<div>
-    <label for="partsTotal">Parts Total: $</label>
-    <input type="number" id="partsTotal" name="partsTotal" step="0.01" class="partsTotal" readonly value="0.00">
-</div>
-
-                <h3>Workforce</h3>
-                <div class="workforce">
-                    <div>
-                        <label for="workforceHrs">Hrs:</label>
-                        <input type="number" id="workforceHrs" name="workforceHrs[]" min="0" class="workforceHrs">
-                    </div>
-                    <div>
-                        <label for="workforceNotes">Notes:</label>
-                        <input type="text" id="workforceNotes" name="workforceNotes[]">
-                    </div>
-                    <div>
-                        <label for="workforcePriceHr">Price/Hr (USD):</label>
-                        <label>$
-                            <input type="number" id="workforcePriceHr" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr">
-                        </label>
-                    </div>
-                    <div>
-                        <label for="workforceSubTotal">Sub Total (USD):</label>
-                        <label>$
-                            <input type="number" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly>
-                        </label>
-                    </div>
-                    <button type="button" class="add-workforce">Add more</button>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <label for="grandTotal">Grand Total (USD):</label>
+          <div>
+            <label>Qt:</label>
+            <input type="number" name="partQt[]" min="0" class="partQt" />
+          </div>
+          <div>
+            <label>Unit Price:</label>
             <label>$
-                <input type="number" id="grandTotal" name="grandTotal" step="0.01">
+              <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice" />
             </label>
+          </div>
         </div>
+      </div>
+      <div>
+        <label>Sub Total:</label>
+        <label>$
+          <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly />
+        </label>
+      </div>
+      <button type="button" class="add-part">Add more</button>
+    </div>
 
-        <div class="form-row">
-            <div class="form-column">
-                <label for="attachment">Photos* (Take Pictures of the equipment and serial number of all the equipment serviced.):</label>
-                <input type="file" id="attachment" name="attachment" multiple accept="image/*" capture="environment" required>
-            </div>
-            <div class="form-column">
-                <label for="jobDescription">Nature of labor performed (Job Description)*:</label>
-                <textarea id="jobDescription" name="jobDescription" required></textarea>
-            </div>
-        </div>
+    <h3>Parts Total</h3>
+    <div>
+      <label>Parts Total:</label>
+      <label>$
+        <input type="number" id="partsTotal" name="partsTotal" step="0.01" class="partsTotal" readonly />
+      </label>
+    </div>
 
-        <div class="form-row">
-            <div class="form-column">
-                <label for="customerSignature">Customer Signature*:</label>
-                <input type="text" id="customerSignature" name="customerSignature" required>
-            </div>
-            <div class="form-column">
-                <label for="printName">Print Name*:</label>
-                <input type="text" id="printName" name="printName" required>
-            </div>
-        </div>
+    <!-- Workforce Section -->
+    <h3>Workforce</h3>
+    <div class="workforce">
+      <div>
+        <label>Hrs:</label>
+        <input type="number" name="workforceHrs[]" min="0" class="workforceHrs" />
+      </div>
+      <div>
+        <label>Notes:</label>
+        <input type="text" name="workforceNotes[]" />
+      </div>
+      <div>
+        <label>Price/Hr (USD):</label>
+        <input type="number" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr" />
+      </div>
+      <div>
+        <label>Sub Total (USD):</label>
+        <input type="number" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly />
+      </div>
+      <button type="button" class="add-workforce">Add more</button>
+    </div>
 
-        <input type="hidden" name="_next" value="https://example.com/thank-you.html">
-        <input type="hidden" name="_subject" value="New submission!">
-        <button type="submit">Submit</button>
+    <h3>Workforce Total</h3>
+    <div>
+      <label>Workforce Total:</label>
+      <label>$
+        <input type="number" id="workforceTotal" name="workforceTotal" step="0.01" readonly />
+      </label>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- Grand Total -->
+    <h3>Grand Total</h3>
+    <div>
+      <label>Grand Total (USD):</label>
+      <label>$
+        <input type="number" id="grandTotal" name="grandTotal" step="0.01" readonly />
+      </label>
+    </div>
+
+    <!-- Submit -->
+    <input type="hidden" name="_next" value="https://example.com/thank-you.html" />
+    <input type="hidden" name="_subject" value="New submission!" />
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Script -->
+  <script src="script.js"></script>
 </body>
 </html>
