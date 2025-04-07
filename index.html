@@ -1,69 +1,105 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factura</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Service Order Form</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <form id="invoiceForm">
-        <h2>Factura</h2>
+  <form id="myForm" action="https://formsubmit.co/pietrogiordanoc@gmail.com" method="POST" enctype="multipart/form-data">
+    <h2>Service Order</h2>
 
-        <!-- Sección de Partes -->
-        <div class="parts">
-            <h3>Partes</h3>
-            <div class="part">
-                <div class="form-row">
-                    <div class="form-column">
-                        <label for="partNumber">Part Number:</label>
-                        <input type="text" name="partNumber[]">
-                    </div>
-                    <div class="form-column">
-                        <label for="partDescription">Descripción:</label>
-                        <input type="text" name="partDescription[]">
-                    </div>
-                </div>
-                <div class="qt-price-row">
-                    <div class="form-column">
-                        <label for="partQt">Cantidad:</label>
-                        <input type="number" name="partQt[]" min="0" class="partQt">
-                    </div>
-                    <div class="form-column">
-                        <label for="partUnitPrice">Precio Unitario:</label>
-                        <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <label for="partSubTotal">Sub Total:</label>
-                    <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly>
-                </div>
-            </div>
-            <button type="button" class="add-part">Agregar Parte</button>
+    <!-- ... puedes mantener el resto del formulario como lo tenías ... -->
+
+    <!-- Parts Section -->
+    <h3>Parts</h3>
+    <div class="parts">
+      <div>
+        <div>
+          <label>Part Number:</label>
+          <input type="text" name="partNumber[]" />
         </div>
-
-        <!-- Sección de Fuerza Laboral -->
-        <div class="workforce">
-            <h3>Fuerza Laboral</h3>
-            <div class="workforce-row">
-                <label for="workforceHrs">Horas:</label>
-                <input type="number" name="workforceHrs[]" min="0" class="workforceHrs">
-            </div>
-            <div class="workforce-row">
-                <label for="workforceNotes">Notas:</label>
-                <input type="text" name="workforceNotes[]">
-            </div>
-            <div class="workforce-row">
-                <label for="workforcePriceHr">Precio/Hora (USD):</label>
-                <input type="number" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr">
-            </div>
-            <div class="workforce-row">
-                <label for="workforceSubTotal">Sub Total (USD):</label>
-                <input type="number" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly>
-            </div>
-            <button type="button" class="add-workforce">Agregar Fuerza Laboral</button>
+        <div>
+          <label>Description:</label>
+          <input type="text" name="partDescription[]" />
         </div>
+        <div class="qt-price-row">
+          <div>
+            <label>Qt:</label>
+            <input type="number" name="partQt[]" min="0" class="partQt" />
+          </div>
+          <div>
+            <label>Unit Price:</label>
+            <label>$
+              <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice" />
+            </label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label>Sub Total:</label>
+        <label>$
+          <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly />
+        </label>
+      </div>
+      <button type="button" class="add-part">Add more</button>
+    </div>
 
-        <!-- Totales -->
-        <div class="totals">
-            <div
+    <h3>Parts Total</h3>
+    <div>
+      <label>Parts Total:</label>
+      <label>$
+        <input type="number" id="partsTotal" name="partsTotal" step="0.01" class="partsTotal" readonly />
+      </label>
+    </div>
+
+    <!-- Workforce Section -->
+    <h3>Workforce</h3>
+    <div class="workforce">
+      <div>
+        <label>Hrs:</label>
+        <input type="number" name="workforceHrs[]" min="0" class="workforceHrs" />
+      </div>
+      <div>
+        <label>Notes:</label>
+        <input type="text" name="workforceNotes[]" />
+      </div>
+      <div>
+        <label>Price/Hr (USD):</label>
+        <input type="number" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr" />
+      </div>
+      <div>
+        <label>Sub Total (USD):</label>
+        <input type="number" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly />
+      </div>
+      <button type="button" class="add-workforce">Add more</button>
+    </div>
+
+    <h3>Workforce Total</h3>
+    <div>
+      <label>Workforce Total:</label>
+      <label>$
+        <input type="number" id="workforceTotal" name="workforceTotal" step="0.01" readonly />
+      </label>
+    </div>
+
+    <!-- Grand Total -->
+    <h3>Grand Total</h3>
+    <div>
+      <label>Grand Total (USD):</label>
+      <label>$
+        <input type="number" id="grandTotal" name="grandTotal" step="0.01" readonly />
+      </label>
+    </div>
+
+    <!-- Submit -->
+    <input type="hidden" name="_next" value="https://example.com/thank-you.html" />
+    <input type="hidden" name="_subject" value="New submission!" />
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
