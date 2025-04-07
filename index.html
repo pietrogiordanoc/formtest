@@ -115,16 +115,19 @@
                     <input type="number" id="partsTotal" name="partsTotal" step="0.01" class="partsTotal" readonly value="0.00">
                 </div>
 
+                <!-- Separación visual -->
+                <hr class="section-divider">
+
                 <!-- Workforce -->
                 <h3>Workforce</h3>
                 <div class="workforce">
                     <div>
-                        <label for="workforceHrs">Hrs:</label>
-                        <input type="number" id="workforceHrs" name="workforceHrs[]" min="0" class="workforceHrs">
-                    </div>
-                    <div>
                         <label for="workforceNotes">Notes:</label>
                         <input type="text" id="workforceNotes" name="workforceNotes[]">
+                    </div>
+                    <div>
+                        <label for="workforceHrs">Hrs:</label>
+                        <input type="number" id="workforceHrs" name="workforceHrs[]" min="0" class="workforceHrs">
                     </div>
                     <div>
                         <label for="workforcePriceHr">Price/Hr (USD):</label>
@@ -132,7 +135,7 @@
                     </div>
                     <div>
                         <label for="workforceSubTotal">Sub Total (USD):</label>
-                        <input type="number" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly>
+                        <input type="number" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly value="0.00">
                     </div>
                     <button type="button" class="add-workforce">Add more</button>
                 </div>
