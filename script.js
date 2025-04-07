@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const partsTotalInput = document.getElementById('partsTotal');
 
     function calculatePartSubtotal(partDiv) {
-        const qt = parseFloat(partDiv.querySelector('.partQt')?.value) || 0;
-        const price = parseFloat(partDiv.querySelector('.partUnitPrice')?.value) || 0;
+        const qt = parseFloat(partDiv.querySelector('.partQt').value) || 0;
+        const price = parseFloat(partDiv.querySelector('.partUnitPrice').value) || 0;
         const subtotal = qt * price;
         partDiv.querySelector('.partSubTotal').value = subtotal.toFixed(2);
     }
@@ -21,18 +21,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function setupPartListeners(partDiv) {
-        partDiv.querySelector('.partQt')?.addEventListener('input', () => {
+        partDiv.querySelector('.partQt').addEventListener('input', () => {
             calculatePartSubtotal(partDiv);
             calculatePartsTotal();
         });
-        partDiv.querySelector('.partUnitPrice')?.addEventListener('input', () => {
+        partDiv.querySelector('.partUnitPrice').addEventListener('input', () => {
             calculatePartSubtotal(partDiv);
             calculatePartsTotal();
         });
     }
-
-    const initialPart = partsContainer.querySelector('> div');
-    if (initialPart) setupPartListeners(initialPart);
 
     addPartButton.addEventListener('click', () => {
         const newPartDiv = document.createElement('div');
@@ -73,8 +70,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const workforceTotalInput = document.getElementById('workforceTotal');
 
     function calculateWorkforceSubtotal(row) {
-        const hrs = parseFloat(row.querySelector('.workforceHrs')?.value) || 0;
-        const price = parseFloat(row.querySelector('.workforcePriceHr')?.value) || 0;
+        const hrs = parseFloat(row.querySelector('.workforceHrs').value) || 0;
+        const price = parseFloat(row.querySelector('.workforcePriceHr').value) || 0;
         const subtotal = hrs * price;
         row.querySelector('.workforceSubTotal').value = subtotal.toFixed(2);
     }
@@ -89,18 +86,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function setupWorkforceRow(row) {
-        row.querySelector('.workforceHrs')?.addEventListener('input', () => {
+        row.querySelector('.workforceHrs').addEventListener('input', () => {
             calculateWorkforceSubtotal(row);
             calculateWorkforceTotal();
         });
-        row.querySelector('.workforcePriceHr')?.addEventListener('input', () => {
+        row.querySelector('.workforcePriceHr').addEventListener('input', () => {
             calculateWorkforceSubtotal(row);
             calculateWorkforceTotal();
         });
     }
-
-    const initialWorkforce = workforceContainer.querySelector('> div');
-    if (initialWorkforce) setupWorkforceRow(initialWorkforce);
 
     addWorkforceBtn.addEventListener('click', () => {
         const newRow = document.createElement('div');
@@ -117,4 +111,23 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="workforce-row">
                 <label for="workforcePriceHr">Precio/Hora (USD):</label>
                 <input type="number" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr">
-            </div
+            </div>
+            <div class="workforce-row">
+                <label for="workforceSubTotal">Sub Total (USD):</label>
+                <input type="number" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly>
+            </div>
+        `;
+        workforceContainer.insertBefore(newRow, addWorkforceBtn);
+        setupWorkforceRow(newRow);
+    });
+
+    // ========== TOTAL GENERAL ========== 
+    const grandTotalInput = document.getElementById('grandTotal');
+
+    function calculateGrandTotal() {
+        const partsTotal = parseFloat(partsTotalInput.value) || 0;
+        const workforceTotal = parseFloat(workforceTotalInput.value) || 0;
+        const grandTotal = partsTotal + workforceTotal;
+        grandTotalInput.value = grandTotal.toFixed(2);
+    }
+});
