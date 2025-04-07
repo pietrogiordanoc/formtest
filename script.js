@@ -1,69 +1,138 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // ... (funciones para partes y mano de obra sin cambios) ...
-
-  // Función para agregar un nuevo campo de equipo seleccionable
-  document.querySelector(".agregar-equipo-seleccionable").addEventListener("click", function () {
-  const equiposContainer = document.querySelector(".equipos-seleccionables");
-  const numEquipos = equiposContainer.querySelectorAll(".equipo-seleccionable-fila").length;
-  const nuevoEquipoFila = document.createElement("div");
-  nuevoEquipoFila.classList.add("equipo-seleccionable-fila");
-  nuevoEquipoFila.innerHTML = `
+  // Function to add a new part
+  document.querySelector(".add-part").addEventListener("click", function () {
+  const partRow = document.createElement("div");
+  partRow.classList.add("part-row");
+  partRow.innerHTML = `
   <div>
-  <label for="tipoEquipo_${numEquipos}">Tipo de Equipo:</label>
-  <select class="tipoEquipo" id="tipoEquipo_${numEquipos}" name="tipoEquipo[]">
-  <option value="">Seleccionar...</option>
-  <option value="Espresso Coffee Equipment">Equipo de Café Espresso</option>
-  <option value="Coffee Machine">Máquina de Café</option>
-  <option value="Coffee Grinder">Molinillo de Café</option>
-  <option value="Other Equipment">Otro Equipo</option>
+  <label>Part Number:</label>
+  <input type="text" class="partNumber" name="partNumber[]">
+  </div>
+  <div>
+  <label>Description:</label>
+  <input type="text" class="partDescription" name="partDescription[]">
+  </div>
+  <div class="qt-price-row">
+  <div>
+  <label>Qt:</label>
+  <input type="number" name="partQt[]" min="0" class="partQt" value="0">
+  </div>
+  <div>
+  <label>Unit Price: $</label>
+  <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice" value="0">
+  </div>
+  </div>
+  <div>
+  <label>Sub Total: $</label>
+  <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0.00">
+  </div>
+  `;
+  document.querySelector(".parts").appendChild(partRow);
+  updatePartsTotal();
+  });
+
+  // Function to add more workforce
+  document.querySelector(".add-workforce").addEventListener("click", function () {
+  const workforceRow = document.createElement("div");
+  workforceRow.classList.add("workforce-row");
+  workforceRow.innerHTML = `
+  <div>
+  <label>Notes:</label>
+  <input type="text" class="workforceNotes" name="workforceNotes[]">
+  </div>
+  <div>
+  <label>Hrs:</label>
+  <input type="number" class="workforceHrs" name="workforceHrs[]" min="0" value="0">
+  </div>
+  <div>
+  <label>Price/Hr (USD):</label>
+  <input type="number" class="workforcePriceHr" name="workforcePriceHr[]" step="0.01" value="0">
+  </div>
+  <div>
+  <label>Sub Total (USD):</label>
+  <input type="number" class="workforceSubTotal" name="workforceSubTotal[]" step="0.01" readonly value="0.00">
+  </div>
+  `;
+  document.querySelector(".workforce").appendChild(workforceRow);
+  updateWorkforceTotal();
+  });
+
+  // Function to add a new selectable equipment field
+  document.querySelector(".add-equipment-selectable").addEventListener("click", function () {
+  const equipmentsContainer = document.querySelector(".equipments-selectable");
+  const numEquipments = equipmentsContainer.querySelectorAll(".equipment-selectable-row").length;
+  const newEquipmentRow = document.createElement("div");
+  newEquipmentRow.classList.add("equipment-selectable-row");
+  newEquipmentRow.innerHTML = `
+  <div>
+  <label for="equipmentType_${numEquipments}">Equipment Type:</label>
+  <select class="equipmentType" id="equipmentType_${numEquipments}" name="equipmentType[]">
+  <option value="">Select...</option>
+  <option value="Espresso Coffee Equipment">Espresso Coffee Equipment</option>
+  <option value="Coffee Machine">Coffee Machine</option>
+  <option value="Coffee Grinder">Coffee Grinder</option>
+  <option value="Other Equipment">Other Equipment</option>
   </select>
   </div>
   <div>
-  <label for="marcaModelo_${numEquipos}">Marca y Modelo:</label>
-  <input type="text" class="marcaModelo" id="marcaModelo_${numEquipos}" name="marcaModelo[]">
+  <label for="brandModel_${numEquipments}">Brand & Model:</label>
+  <input type="text" class="brandModel" id="brandModel_${numEquipments}" name="brandModel[]">
   </div>
   <div>
-  <label for="numeroSerie_${numEquipos}">Número de Serie:</label>
-  <input type="text" class="numeroSerie" id="numeroSerie_${numEquipos}" name="numeroSerie[]">
+  <label for="serialNumber_${numEquipments}">Serial Number:</label>
+  <input type="text" class="serialNumber" id="serialNumber_${numEquipments}" name="serialNumber[]">
   </div>
-  <button type="button" class="eliminar-equipo">Eliminar</button>
+  <button type="button" class="delete-equipment">Delete</button>
   `;
-  equiposContainer.appendChild(nuevoEquipoFila);
+  equipmentsContainer.appendChild(newEquipmentRow);
 
-  // Mostrar el botón de eliminar si hay más de un equipo
-  if (equiposContainer.querySelectorAll(".equipo-seleccionable-fila").length > 1) {
-  nuevoEquipoFila.querySelector(".eliminar-equipo").style.display = "inline-block";
-  }
-
-  // Agregar event listener para eliminar este equipo
-  nuevoEquipoFila.querySelector(".eliminar-equipo").addEventListener("click", function() {
-  nuevoEquipoFila.remove();
-  // Ocultar el botón de eliminar si solo queda un equipo
-  if (equiposContainer.querySelectorAll(".equipo-seleccionable-fila").length === 1) {
-  equiposContainer.querySelector(".eliminar-equipo").style.display = "none";
-  }
+  // Add event listener to delete this equipment row
+  newEquipmentRow.querySelector(".delete-equipment").addEventListener("click", function () {
+  newEquipmentRow.remove();
+  });
   });
 
-  // Asegurarse de que el botón de eliminar del primer elemento esté oculto inicialmente
-  if (numEquipos === 0 && equiposContainer.querySelectorAll(".equipo-seleccionable-fila").length === 1) {
-  equiposContainer.querySelector(".eliminar-equipo").style.display = "none";
-  }
+  // Update parts total
+  function updatePartsTotal() {
+  let total = 0;
+  const partRows = document.querySelectorAll(".part-row");
+  partRows.forEach(row => {
+  const quantity = parseFloat(row.querySelector(".partQt").value) || 0;
+  const unitPrice = parseFloat(row.querySelector(".partUnitPrice").value) || 0;
+  const subTotal = quantity * unitPrice;
+  row.querySelector(".partSubTotal").value = subTotal.toFixed(2);
+  total += subTotal;
   });
-
-  // Inicialmente ocultar el botón de eliminar del primer equipo
-  const initialEquipoFila = document.querySelector(".equipos-seleccionables .equipo-seleccionable-fila");
-  if (initialEquipoFila) {
-  initialEquipoFila.querySelector(".eliminar-equipo").style.display = "none";
+  document.querySelector("#partsTotal").value = total.toFixed(2);
+  updateGrandTotal();
   }
 
-  // ... (event listeners para partes y mano de obra sin cambios) ...
-  document.querySelector(".partes").addEventListener("input", actualizarTotalPartes);
-  document.querySelector(".mano-de-obra").addEventListener("input", actualizarTotalManoDeObra);
- });
+  // Update workforce total
+  function updateWorkforceTotal() {
+  let total = 0;
+  const workforceRows = document.querySelectorAll(".workforce-row");
+  workforceRows.forEach(row => {
+  const hours = parseFloat(row.querySelector(".workforceHrs").value) || 0;
+  const pricePerHour = parseFloat(row.querySelector(".workforcePriceHr").value) || 0;
+  const subTotal = hours * pricePerHour;
+  row.querySelector(".workforceSubTotal").value = subTotal.toFixed(2);
+  total += subTotal;
+  });
+  document.querySelector("#workforceTotal").value = total.toFixed(2);
+  updateGrandTotal();
+  }
 
- // ... (funciones actualizarTotalPartes y actualizarTotalManoDeObra sin cambios) ...
- function actualizarTotalGeneral() {
-  const totalPartes = parseFloat(document.querySelector("#totalPartes").value) || 0;
-  const totalManoDeObra = parseFloat(document.querySelector("#totalManoDeObra").value) || 0;
-  document.querySelector("#totalGeneral").value = (totalPartes + totalManoDeObra).toFixed(2);
- }
+  // Update grand total (Parts + Workforce)
+  function updateGrandTotal() {
+  const partsTotal = parseFloat(document.querySelector("#partsTotal").value) || 0;
+  const workforceTotal = parseFloat(document.querySelector("#workforceTotal").value) || 0;
+  document.querySelector("#grandTotal").value = (partsTotal + workforceTotal).toFixed(2);
+  }
+
+  // Calculate part subtotal on input change
+  document.querySelector(".parts").addEventListener("input", updatePartsTotal);
+  // Calculate workforce subtotal on input change
+  document.querySelector(".workforce").addEventListener("input", updateWorkforceTotal);
+
+  // Initialize with one equipment row and delete button visible
+  document
