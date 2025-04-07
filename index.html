@@ -103,46 +103,40 @@
                     <button type="button" class="add-drip">Add more</button>
                 </div>
 
-                <h3>Parts</h3>
-                <div class="parts">
-                    <div>
-                        <div>
-                            <label for="partNumber">Part Number:</label>
-                            <input type="text" id="partNumber" name="partNumber[]">
-                        </div>
-                        <div>
-                            <label for="partDescription">Description:</label>
-                            <input type="text" id="partDescription" name="partDescription[]">
-                        </div>
-                        <div class="qt-price-row">
-                            <div>
-                                <label for="partQt">Qt:</label>
-                                <input type="number" id="partQt" name="partQt[]" min="0" class="partQt">
-                            </div>
-                            <div>
-                                <label for="partUnitPrice">Unit Price:</label>
-                                <label>$
-                                    <input type="number" id="partUnitPrice" name="partUnitPrice[]" step="0.01" class="partUnitPrice">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="partSubTotal">Sub Total:</label>
-                        <label>$
-                            <input type="number" id="partSubTotal" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly>
-                        </label>
-                    </div>
-                    <button type="button" class="add-part">Add more</button>
-                </div>
+               <h3>Parts</h3>
+<div class="parts">
+    <div class="part-row">
+        <div>
+            <label>Part Number:</label>
+            <input type="text" class="partNumber" name="partNumber[]">
+        </div>
+        <div>
+            <label>Description:</label>
+            <input type="text" class="partDescription" name="partDescription[]">
+        </div>
+        <div class="qt-price-row">
+            <div>
+                <label>Qt:</label>
+                <input type="number" name="partQt[]" min="0" class="partQt" value="0">
+            </div>
+            <div>
+                <label>Unit Price: $</label>
+                <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice" value="0">
+            </div>
+        </div>
+        <div>
+            <label>Sub Total: $</label>
+            <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0.00">
+        </div>
+    </div>
+    <button type="button" class="add-part">Add more</button>
+</div>
 
-                <h3>Parts Total</h3>
-                <div>
-                    <label for="partsTotal">Parts Total:</label>
-                    <label>$
-                        <input type="number" id="partsTotal" name="partsTotal" step="0.01" class="partsTotal" readonly>
-                    </label>
-                </div>
+<h3>Parts Total</h3>
+<div>
+    <label for="partsTotal">Parts Total: $</label>
+    <input type="number" id="partsTotal" name="partsTotal" step="0.01" class="partsTotal" readonly value="0.00">
+</div>
 
                 <h3>Workforce</h3>
                 <div class="workforce">
