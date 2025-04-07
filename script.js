@@ -1,202 +1,200 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const partsContainer = document.querySelector('.parts');
-    const addPartButton = document.querySelector('.add-part');
-    const partsTotalInput = document.querySelector('#partsTotal');
-    const equipmentSection = document.querySelector('.equipment-section');
-    const workforceContainer = document.querySelector('.workforce');
-    const addWorkforceButton = document.querySelector(".add-workforce");
-    const grandTotalInput = document.querySelector("#grandTotal");
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    color: #333;
+    font-size: 0.9em;
+}
 
-    function calculatePartSubtotal(partRow) {
-        const qtInput = partRow.querySelector('.partQt');
-        const unitPriceInput = partRow.querySelector('.partUnitPrice');
-        const subTotalInput = partRow.querySelector('.partSubTotal');
+form {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 900px;
+    max-width: 90%;
+}
 
-        const qt = parseFloat(qtInput.value) || 0;
-        const unitPrice = parseFloat(unitPriceInput.value) || 0;
-        const subTotal = qt * unitPrice;
+h2 {
+    text-align: center;
+    color: #3498db;
+    margin-bottom: 20px;
+    font-size: 1.6em;
+}
 
-        subTotalInput.value = subTotal.toFixed(2);
+h3 {
+    color: #2c3e50;
+    margin-top: 15px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 4px;
+    font-size: 1.2em;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #555;
+    font-size: 0.95em;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 6px;
+    margin-bottom: 10px;
+}
+
+div>label {
+    display: inline;
+    font-weight: normal;
+    color: #777;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.qt-price-row {
+    display: flex;
+    gap: 12px;
+}
+
+.form-column {
+    flex: 1;
+    padding-right: 15px;
+}
+
+@media (max-width: 768px) {
+    .form-column {
+        flex-basis: 100%;
+        padding-right: 0;
     }
 
-    function calculatePartsTotal() {
-        let total = 0;
-        const subTotalInputs = partsContainer.querySelectorAll('.partSubTotal');
-        subTotalInputs.forEach(input => {
-            total += parseFloat(input.value) || 0;
-        });
-        partsTotalInput.value = total.toFixed(2);
+    .qt-price-row {
+        flex-direction: column;
+        gap: 6px;
     }
+}
 
-    function setupPartRowListeners(partRow) {
-        const qtInput = partRow.querySelector('.partQt');
-        const unitPriceInput = partRow.querySelector('.partUnitPrice');
+.section-divider {
+    height: 2px;
+    background-color: #ddd;
+    margin: 25px 0;
+}
 
-        qtInput.addEventListener('input', () => {
-            calculatePartSubtotal(partRow);
-            calculatePartsTotal();
-            updateGrandTotal();
-        });
+.add-part,
+.add-workforce,
+.add-equipment {
+    background-color: #27ae60;
+    color: white;
+    padding: 9px 13px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background-color 0.3s;
+    display: block;
+    width: auto;
+    margin-left: auto;
+    font-size: 0.9em;
+}
 
-        unitPriceInput.addEventListener('input', () => {
-            calculatePartSubtotal(partRow);
-            calculatePartsTotal();
-            updateGrandTotal();
-        });
-    }
+.add-part:hover,
+.add-workforce:hover,
+.add-equipment:hover {
+    background-color: #219653;
+}
 
-    // Inicializar listeners para la primera fila de partes
-    const initialPartRow = partsContainer.querySelector('.part-row');
-    if (initialPartRow) {
-        setupPartRowListeners(initialPartRow);
-    }
+.parts .form-row,
+.workforce .form-row,
+.equipment .form-row {
+    margin-bottom: 6px;
+}
 
-    addPartButton.addEventListener('click', function () {
-        const newPartRow = document.createElement('div');
-        newPartRow.classList.add("part-row");
-        newPartRow.innerHTML = `
-            <div class="form-row">
-                <div class="form-column">
-                    <label>Part Number:</label>
-                    <input type="text" class="partNumber" name="partNumber[]">
-                </div>
-                <div class="form-column">
-                    <label>Description:</label>
-                    <input type="text" class="partDescription" name="partDescription[]">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-column">
-                    <div class="qt-price-row">
-                        <div>
-                            <label>Qt:</label>
-                            <input type="number" name="partQt[]" min="0" class="partQt" value="0">
-                        </div>
-                        <div>
-                            <label>Unit Price: $</label>
-                            <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice" value="0">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-column">
-                    <div>
-                        <label>Sub Total: $</label>
-                        <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0.00">
-                    </div>
-                </div>
-            </div>
-        `;
-        partsContainer.insertBefore(newPartRow, addPartButton);
-        setupPartRowListeners(newPartRow);
-        calculatePartsTotal();
-        updateGrandTotal();
-    });
+.parts .form-row input,
+.workforce .form-row input,
+.equipment .form-row input,
+.parts .form-row select,
+.workforce .form-row select,
+.equipment .form-row select {
+    margin-bottom: 6px;
+}
 
-    function calculateWorkforceSubtotal(workforceRow) {
-        const hoursInput = workforceRow.querySelector(".workforceHrs");
-        const pricePerHourInput = workforceRow.querySelector(".workforcePriceHr");
-        const subTotalInput = workforceRow.querySelector(".workforceSubTotal");
+.grand-total-section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 1.1em;
+    border-top: 2px solid #ddd;
+    margin-top: 20px;
+}
 
-        const hours = parseFloat(hoursInput.value) || 0;
-        const pricePerHour = parseFloat(pricePerHourInput.value) || 0;
-        const subTotal = hours * pricePerHour;
+.grand-total-section label {
+    margin-right: 10px;
+    font-weight: bold;
+    display: inline-block;
+}
 
-        subTotalInput.value = subTotal.toFixed(2);
-    }
-
-    function setupWorkforceRowListeners(workforceRow) {
-        const hoursInput = workforceRow.querySelector(".workforceHrs");
-        const pricePerHourInput = workforceRow.querySelector(".workforcePriceHr");
-
-        hoursInput.addEventListener("input", () => {
-            calculateWorkforceSubtotal(workforceRow);
-            updateGrandTotal();
-        });
-
-        pricePerHourInput.addEventListener("input", () => {
-            calculateWorkforceSubtotal(workforceRow);
-            updateGrandTotal();
-        });
-    }
-
-    // Inicializar listeners para la primera fila de mano de obra
-    const initialWorkforceRow = workforceContainer.querySelector(".workforce-row");
-    if (initialWorkforceRow) {
-        setupWorkforceRowListeners(initialWorkforceRow);
-    }
-
-    addWorkforceButton.addEventListener("click", function () {
-        const workforceRow = document.createElement("div");
-        workforceRow.classList.add("workforce-row");
-        workforceRow.innerHTML = `
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="workforceNotes">Notes:</label>
-                    <input type="text" id="workforceNotes" name="workforceNotes[]">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="workforceHrs">Hrs:</label>
-                    <input type="number" id="workforceHrs" name="workforceHrs[]" min="0" class="workforceHrs" value="0">
-                </div>
-                <div class="form-column">
-                    <label for="workforcePriceHr">Price/Hr (USD):</label>
-                    <input type="number" id="workforcePriceHr" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr" value="0">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="workforceSubTotal">Sub Total (USD):</label>
-                    <input type="number" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly value="0.00">
-                </div>
-            </div>
-        `;
-        workforceContainer.appendChild(workforceRow);
-        setupWorkforceRowListeners(workforceRow);
-        updateGrandTotal();
-    });
-
-    function updateGrandTotal() {
-        const partsTotal = parseFloat(partsTotalInput.value) || 0;
-        let workforceTotal = 0;
-        document.querySelectorAll(".workforce-row").forEach(row => {
-            workforceTotal += parseFloat(row.querySelector(".workforceSubTotal").value) || 0;
-        });
-        grandTotalInput.value = (partsTotal + workforceTotal).toFixed(2);
-    }
-
-    document.querySelector(".add-equipment").addEventListener("click", function () {
-        const equipmentDiv = document.createElement("div");
-        equipmentDiv.classList.add("equipment");
-        equipmentDiv.innerHTML = `
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="equipmentType">Equipment Type:</label>
-                    <select name="equipmentType[]">
-                        <option value="espresso">Espresso Coffee Equipment</option>
-                        <option value="coffeeMachine">Coffee Machine</option>
-                        <option value="coffeeGrinder">Coffee Grinder</option>
-                        <option value="dripCoffee">Drip Coffee</option>
-                        <option value="dripBrewer">Drip Brewer</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="equipmentBrandModel">Brand & Model:</label>
-                    <input type="text" name="equipmentBrandModel[]">
-                </div>
-                <div class="form-column">
-                    <label for="equipmentSerialNumber">Serial Number:</label>
-                    <input type="text" name="equipmentSerialNumber[]">
-                </div>
-            </div>
-        `;
-        equipmentSection.querySelector(".equipment").appendChild(equipmentDiv);
-    });
-
-    // Inicializar el Grand Total al cargar la página
-    updateGrandTotal();
-});
+.grand-total-section input[type="text"] {
+    width: auto;
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
