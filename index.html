@@ -13,7 +13,50 @@
   <form id="myForm" action="https://formsubmit.co/pietrogiordanoc@gmail.com" method="POST" enctype="multipart/form-data">
     <h2>Service Order</h2>
 
-    <!-- ... OMITIDO PARA BREVEDAD ... (puedes dejar tu encabezado tal como estaba) -->
+    <div class="form-row">
+      <div class="form-column">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required />
+      </div>
+      <div class="form-column">
+        <label for="client">Client:</label>
+        <input type="text" id="client" name="client" required />
+      </div>
+      <div class="form-column">
+        <label for="technician">Technician:</label>
+        <input type="text" id="technician" name="technician" required />
+      </div>
+    </div>
+
+    <h3>Equipment</h3>
+    <div class="equipment-section">
+      <div class="equipment">
+        <div class="form-row">
+          <div class="form-column">
+            <label for="equipmentType">Equipment Type:</label>
+            <select name="equipmentType[]">
+              <option value="espresso">Espresso Coffee Equipment</option>
+              <option value="coffeeMachine">Coffee Machine</option>
+              <option value="coffeeGrinder">Coffee Grinder</option>
+              <option value="dripCoffee">Drip Coffee</option>
+              <option value="dripBrewer">Drip Brewer</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-column">
+            <label for="equipmentBrandModel">Brand & Model:</label>
+            <input type="text" name="equipmentBrandModel[]" />
+          </div>
+          <div class="form-column">
+            <label for="equipmentSerialNumber">Serial Number:</label>
+            <input type="text" name="equipmentSerialNumber[]" />
+          </div>
+        </div>
+      </div>
+      <button type="button" class="add-equipment">Add more Equipment</button>
+    </div>
 
     <h3>Parts</h3>
     <div class="parts">
@@ -92,8 +135,24 @@
       <input type="text" id="grandTotal" name="grandTotal" readonly value="0,00" />
     </div>
 
-    <!-- ... resto del formulario sigue igual ... -->
+    <h3>Comments</h3>
+    <div class="form-row">
+      <div class="form-column">
+        <textarea name="comments" rows="5" cols="50" placeholder="Additional comments..."></textarea>
+      </div>
+    </div>
 
+    <h3>Signature</h3>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="signature">Upload Signature:</label>
+        <input type="file" name="signature" accept="image/*" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <button type="submit">Submit</button>
+    </div>
   </form>
 </body>
 
