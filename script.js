@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const unitPrice = parseFloat(unitPriceInput.value) || 0;
         const subTotal = qt * unitPrice;
 
+        // Asigna el valor numérico antes de formatear para la visualización
+        subTotalInput.value = subTotal;
+        // Formatea el valor para la visualización
         subTotalInput.value = formatNumberWithCommas(subTotal);
     }
 
@@ -108,6 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const pricePerHour = parseFloat(pricePerHourInput.value) || 0;
         const subTotal = hours * pricePerHour;
 
+        subTotalInput.value = subTotal;
         subTotalInput.value = formatNumberWithCommas(subTotal);
     }
 
@@ -154,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="form-row">
                 <div class="form-column">
                     <label for="workforceSubTotal">Sub Total (USD):</label>
-                    <input type="text" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly value="0.00">
+                    <input type="number" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly value="0.00">
                 </div>
             </div>
         `;
