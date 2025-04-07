@@ -2,19 +2,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const partsContainer = document.querySelector('.parts');
     const addPartButton = document.querySelector('.add-part');
     const partsTotalInput = document.querySelector('#partsTotal');
-    const equipmentSection = document.querySelector('.equipment-section');
     const workforceContainer = document.querySelector('.workforce');
     const addWorkforceButton = document.querySelector(".add-workforce");
     const grandTotalInput = document.querySelector("#grandTotal");
 
+    // Función para formatear números con comas y dos decimales
     function formatNumberWithCommas(number) {
         return number.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
+    // Función para analizar números formateados
     function parseNumber(formattedNumber) {
         return parseFloat(formattedNumber.replace(/\./g, '').replace(',', '.')) || 0;
     }
 
+    // Calcular el subtotal de una fila de partes
     function calculatePartSubtotal(partRow) {
         const qtInput = partRow.querySelector('.partQt');
         const unitPriceInput = partRow.querySelector('.partUnitPrice');
@@ -27,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         subTotalInput.value = formatNumberWithCommas(subTotal);
     }
 
+    // Calcular el total de todas las partes
     function calculatePartsTotal() {
         let total = 0;
         const subTotalInputs = partsContainer.querySelectorAll('.partSubTotal');
@@ -36,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         partsTotalInput.value = formatNumberWithCommas(total);
     }
 
+    // Configurar listeners para una fila de partes
     function setupPartRowListeners(partRow) {
         const qtInput = partRow.querySelector('.partQt');
         const unitPriceInput = partRow.querySelector('.partUnitPrice');
@@ -53,11 +57,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    const initialPartRow = partsContainer.querySelector('.part-row');
-    if (initialPartRow) {
-        setupPartRowListeners(initialPartRow);
-    }
+    // Configurar listeners para las filas iniciales de partes
+    const initialPartRows = partsContainer.querySelectorAll('.part-row');
+    initialPartRows.forEach(row => {
+        setupPartRowListeners(row);
+        calculatePartSubtotal(row); // Calcular el subtotal inicial
+    });
+    calculatePartsTotal(); // Calcular el total inicial de partes
 
+    // Agregar más filas de partes
     addPartButton.addEventListener('click', function () {
         const newPartRow = document.createElement('div');
         newPartRow.classList.add("part-row");
@@ -99,6 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateGrandTotal();
     });
 
+    // Calcular el subtotal de una fila de mano de obra
     function calculateWorkforceSubtotal(workforceRow) {
         const hoursInput = workforceRow.querySelector(".workforceHrs");
         const pricePerHourInput = workforceRow.querySelector(".workforcePriceHr");
@@ -111,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
         subTotalInput.value = formatNumberWithCommas(subTotal);
     }
 
+    // Configurar listeners para una fila de mano de obra
     function setupWorkforceRowListeners(workforceRow) {
         const hoursInput = workforceRow.querySelector(".workforceHrs");
         const pricePerHourInput = workforceRow.querySelector(".workforcePriceHr");
@@ -126,11 +136,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    const initialWorkforceRow = workforceContainer.querySelector(".workforce-row");
-    if (initialWorkforceRow) {
-        setupWorkforceRowListeners(initialWorkforceRow);
-    }
+    // Configurar listeners para las filas iniciales de mano de obra
+    const initialWorkforceRows = workforceContainer.querySelectorAll(".workforce-row");
+    initialWorkforceRows.forEach(row => {
+        setupWorkforceRowListeners(row);
+        calculateWorkforceSubtotal(row); // Calcular el subtotal inicial
+    });
+    updateGrandTotal(); // Calcular el gran total inicial
 
+    // Agregar más filas de mano de obra
     addWorkforceButton.addEventListener("click", function () {
         const workforceRow = document.createElement("div");
         workforceRow.classList.add("workforce-row");
@@ -163,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateGrandTotal();
     });
 
+    // Calcular el gran total
     function updateGrandTotal() {
         const partsTotal = parseNumber(partsTotalInput.value);
         let workforceTotal = 0;
@@ -171,38 +186,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         grandTotalInput.value = formatNumberWithCommas(partsTotal + workforceTotal);
     }
-
-    document.querySelector(".add-equipment").addEventListener("click", function () {
-        const equipmentDiv = document.createElement("div");
-        equipmentDiv.classList.add("equipment");
-        equipmentDiv.innerHTML = `
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="equipmentType">Equipment Type:</label>
-                    <select name="equipmentType[]">
-                        <option value="espresso">Espresso Coffee Equipment</option>
-                        <option value="coffeeMachine">Coffee Machine</option>
-                        <option value="coffeeGrinder">Coffee Grinder</option>
-                        <option value="dripCoffee">Drip Coffee</option>
-                        <option value="dripBrewer">Drip Brewer</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="equipmentBrandModel">Brand & Model:</label>
-                    <input type="text" name="equipmentBrandModel[]">
-                </div>
-                <div class="form-column">
-                    <label for="equipmentSerialNumber">Serial Number:</label>
-                    <input type="text" name="equipmentSerialNumber[]">
-                </div>
-            </div>
-        `;
-        equipmentSection.querySelector(".equipment").appendChild(equipmentDiv);
-    });
-
-    // Inicializar el Grand Total al cargar la página
-    updateGrandTotal();
 });
