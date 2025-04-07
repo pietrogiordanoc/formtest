@@ -1,4 +1,5 @@
-body {
+/* (Los mismos estilos de antes, con la adición de estilos para .equipo-seleccionable-fila y .eliminar-equipo) */
+ body {
   font-family: sans-serif;
   display: flex;
   justify-content: center;
@@ -30,7 +31,8 @@ body {
  input[type="email"],
  input[type="date"],
  input[type="number"],
- textarea {
+ textarea,
+ select {
   width: 100%;
   padding: 8px;
   margin-bottom: 10px;
@@ -67,22 +69,4 @@ body {
   background-color: #3e8e41;
  }
 
- .form-row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
- }
-
- .form-column {
-  flex: 1;
-  padding-right: 10px;
- }
-
- .form-column:last-child {
-  padding-right: 0;
- }
-
- .qt-price-row {
-  display: flex;
-  gap: 10px;
- }
+ .fila-
