@@ -1,82 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
+    <title>Factura</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <form id="invoiceForm">
-        <!-- Parts Section -->
+        <h2>Factura</h2>
+
+        <!-- Sección de Partes -->
         <div class="parts">
-            <h3>Parts</h3>
-            <div>
-                <div>
-                    <label>Part Number:</label>
-                    <input type="text" name="partNumber[]">
-                </div>
-                <div>
-                    <label>Description:</label>
-                    <input type="text" name="partDescription[]">
+            <h3>Partes</h3>
+            <div class="part">
+                <div class="form-row">
+                    <div class="form-column">
+                        <label for="partNumber">Part Number:</label>
+                        <input type="text" name="partNumber[]">
+                    </div>
+                    <div class="form-column">
+                        <label for="partDescription">Descripción:</label>
+                        <input type="text" name="partDescription[]">
+                    </div>
                 </div>
                 <div class="qt-price-row">
-                    <div>
-                        <label>Qt:</label>
+                    <div class="form-column">
+                        <label for="partQt">Cantidad:</label>
                         <input type="number" name="partQt[]" min="0" class="partQt">
                     </div>
-                    <div>
-                        <label>Unit Price:</label>
-                        <label>$<input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice"></label>
+                    <div class="form-column">
+                        <label for="partUnitPrice">Precio Unitario:</label>
+                        <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice">
                     </div>
                 </div>
+                <div class="form-row">
+                    <label for="partSubTotal">Sub Total:</label>
+                    <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly>
+                </div>
             </div>
-            <div>
-                <label>Sub Total:</label>
-                <label>$<input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly></label>
-            </div>
-            <button type="button" class="add-part">Add Part</button>
+            <button type="button" class="add-part">Agregar Parte</button>
         </div>
 
-        <!-- Workforce Section -->
+        <!-- Sección de Fuerza Laboral -->
         <div class="workforce">
-            <h3>Workforce</h3>
-            <div>
-                <label>Hrs:</label>
+            <h3>Fuerza Laboral</h3>
+            <div class="workforce-row">
+                <label for="workforceHrs">Horas:</label>
                 <input type="number" name="workforceHrs[]" min="0" class="workforceHrs">
             </div>
-            <div>
-                <label>Notes:</label>
+            <div class="workforce-row">
+                <label for="workforceNotes">Notas:</label>
                 <input type="text" name="workforceNotes[]">
             </div>
-            <div>
-                <label>Price/Hr (USD):</label>
+            <div class="workforce-row">
+                <label for="workforcePriceHr">Precio/Hora (USD):</label>
                 <input type="number" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr">
             </div>
-            <div>
-                <label>Sub Total (USD):</label>
-                <input type="number" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly>
-            </div>
-            <button type="button" class="add-workforce">Add Workforce</button>
-        </div>
-
-        <!-- Totals -->
-        <div>
-            <label>Total for Parts:</label>
-            <input type="number" id="partsTotal" step="0.01" readonly>
-        </div>
-        <div>
-            <label>Total for Workforce:</label>
-            <input type="number" id="workforceTotal" step="0.01" readonly>
-        </div>
-        <div>
-            <label>Grand Total:</label>
-            <input type="number" id="grandTotal" step="0.01" readonly>
-        </div>
-
-        <button type="submit">Submit</button>
-    </form>
-    
-    <script src="script.js"></script>
-</body>
-</html>
+            <div class="workforce-row">
+                <label for="workforceSubTotal">Sub Total (USD):</label>
+                <input type="number" name="workforceSubTotal[]" step="0.
