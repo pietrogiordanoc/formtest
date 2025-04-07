@@ -151,4 +151,56 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="form-row">
                 <div class="form-column">
                     <label for="workforceHrs">Hrs:</label>
-                    <input type="number" id="workforceHrs" name="workforceHrs[]" min="0" class
+                    <input type="number" id="workforceHrs" name="workforceHrs[]" min="0" class="workforceHrs" value="0">
+                </div>
+                <div class="form-column">
+                    <label for="workforcePriceHr">Price/Hr (USD):</label>
+                    <input type="number" id="workforcePriceHr" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr" value="0">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="workforceSubTotal">Sub Total (USD):</label>
+                    <input type="number" id="workforceSubTotal" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly value="0.00">
+                </div>
+            </div>
+        `;
+        workforceContainer.appendChild(workforceRow);
+        setupWorkforceRowListeners(workforceRow);
+    });
+
+    // Configuración inicial de eventos
+    const initialPartDiv = partsContainer.querySelector('> div');
+    if (initialPartDiv) setupPartRowListeners(initialPartDiv);
+
+    const initialWorkforceRow = workforceContainer.querySelector('.workforce-row');
+    if (initialWorkforceRow) setupWorkforceRowListeners(initialWorkforceRow);
+
+    // Añadir más equipo
+    document.querySelector(".add-equipment").addEventListener("click", function () {
+        const equipmentDiv = document.createElement("div");
+        equipmentDiv.classList.add("equipment");
+        equipmentDiv.innerHTML = `
+            <div>
+                <label for="equipmentType">Equipment Type:</label>
+                <select name="equipmentType[]">
+                    <option value="espresso">Espresso Coffee Equipment</option>
+                    <option value="coffeeMachine">Coffee Machine</option>
+                    <option value="coffeeGrinder">Coffee Grinder</option>
+                    <option value="dripCoffee">Drip Coffee</option>
+                    <option value="dripBrewer">Drip Brewer</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div>
+                <label for="equipmentBrandModel">Brand & Model:</label>
+                <input type="text" name="equipmentBrandModel[]">
+            </div>
+            <div>
+                <label for="equipmentSerialNumber">Serial Number:</label>
+                <input type="text"  name="equipmentSerialNumber[]">
+            </div>
+        `;
+        equipmentSection.appendChild(equipmentDiv);
+    });
+});
