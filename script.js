@@ -2,7 +2,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const partsContainer = document.querySelector('.parts');
     const addPartButton = document.querySelector('.add-part');
     const partsTotalInput = document.getElementById('partsTotal');
+    
+    const workforceContainer = document.querySelector('.workforce');
+    const addWorkforceButton = document.querySelector('.add-workforce');
+    const workforceSubTotalInputs = document.querySelectorAll('.workforceSubTotal');
 
+    // Calcular el subtotal de los repuestos
     function calculatePartSubtotal(partDiv) {
         const qtInput = partDiv.querySelector('.partQt');
         const unitPriceInput = partDiv.querySelector('.partUnitPrice');
@@ -15,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
         subTotalInput.value = subTotal.toFixed(2);
     }
 
+    // Calcular el total de los repuestos
     function calculatePartsTotal() {
         let total = 0;
         const subTotalInputs = partsContainer.querySelectorAll('.partSubTotal');
@@ -24,6 +30,31 @@ document.addEventListener('DOMContentLoaded', function () {
         partsTotalInput.value = total.toFixed(2);
     }
 
+    // Calcular el subtotal de workforce
+    function calculateWorkforceSubtotal(workforceDiv) {
+        const hoursInput = workforceDiv.querySelector('.workforceHrs');
+        const pricePerHourInput = workforceDiv.querySelector('.workforcePriceHr');
+        const subTotalInput = workforceDiv.querySelector('.workforceSubTotal');
+
+        const hours = parseFloat(hoursInput.value) || 0;
+        const pricePerHour = parseFloat(pricePerHourInput.value) || 0;
+        const subTotal = hours * pricePerHour;
+
+        subTotalInput.value = subTotal.toFixed(2);
+    }
+
+    // Calcular el total de workforce
+    function calculateWorkforceTotal() {
+        let total = 0;
+        const subTotalInputs = workforceContainer.querySelectorAll('.workforceSubTotal');
+        subTotalInputs.forEach(input => {
+            total += parseFloat(input.value) || 0;
+        });
+        const grandTotalInput = document.getElementById('grandTotal');
+        grandTotalInput.value = total.toFixed(2);
+    }
+
+    // Configurar los listeners para las filas de repuestos
     function setupPartRowListeners(partDiv) {
         const qtInput = partDiv.querySelector('.partQt');
         const unitPriceInput = partDiv.querySelector('.partUnitPrice');
@@ -37,13 +68,33 @@ document.addEventListener('DOMContentLoaded', function () {
         unitPriceInput.addEventListener('input', onChange);
     }
 
-    // Setup listeners on the first row
+    // Configurar los listeners para las filas de workforce
+    function setupWorkforceRowListeners(workforceDiv) {
+        const hoursInput = workforceDiv.querySelector('.workforceHrs');
+        const pricePerHourInput = workforceDiv.querySelector('.workforcePriceHr');
+
+        const onChange = () => {
+            calculateWorkforceSubtotal(workforceDiv);
+            calculateWorkforceTotal();
+        };
+
+        hoursInput.addEventListener('input', onChange);
+        pricePerHourInput.addEventListener('input', onChange);
+    }
+
+    // Configuración de la primera fila de repuestos
     const initialPartRow = partsContainer.querySelector('.part-row');
     if (initialPartRow) {
         setupPartRowListeners(initialPartRow);
     }
 
-    // Add new part row
+    // Configuración de la primera fila de workforce
+    const initialWorkforceRow = workforceContainer.querySelector('.workforce');
+    if (initialWorkforceRow) {
+        setupWorkforceRowListeners(initialWorkforceRow);
+    }
+
+    // Agregar nueva fila de repuestos
     addPartButton.addEventListener('click', function () {
         const newPartDiv = document.createElement('div');
         newPartDiv.classList.add('part-row');
@@ -73,5 +124,31 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         partsContainer.insertBefore(newPartDiv, addPartButton);
         setupPartRowListeners(newPartDiv);
+    });
+
+    // Agregar nueva fila de workforce
+    addWorkforceButton.addEventListener('click', function () {
+        const newWorkforceDiv = document.createElement('div');
+        newWorkforceDiv.classList.add('workforce-row');
+        newWorkforceDiv.innerHTML = `
+            <div>
+                <label>Hrs:</label>
+                <input type="number" name="workforceHrs[]" min="0" class="workforceHrs" value="0">
+            </div>
+            <div>
+                <label>Notes:</label>
+                <input type="text" name="workforceNotes[]">
+            </div>
+            <div>
+                <label>Price/Hr (USD):</label>
+                <input type="number" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr" value="0">
+            </div>
+            <div>
+                <label>Sub Total (USD):</label>
+                <input type="number" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly value="0.00">
+            </div>
+        `;
+        workforceContainer.insertBefore(newWorkforceDiv, addWorkforceButton);
+        setupWorkforceRowListeners(newWorkforceDiv);
     });
 });
