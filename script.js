@@ -102,32 +102,4 @@ document.addEventListener('DOMContentLoaded', function () {
         newRow.innerHTML = `
             <div class="workforce-row">
                 <label for="workforceHrs">Horas:</label>
-                <input type="number" name="workforceHrs[]" min="0" class="workforceHrs">
-            </div>
-            <div class="workforce-row">
-                <label for="workforceNotes">Notas:</label>
-                <input type="text" name="workforceNotes[]">
-            </div>
-            <div class="workforce-row">
-                <label for="workforcePriceHr">Precio/Hora (USD):</label>
-                <input type="number" name="workforcePriceHr[]" step="0.01" class="workforcePriceHr">
-            </div>
-            <div class="workforce-row">
-                <label for="workforceSubTotal">Sub Total (USD):</label>
-                <input type="number" name="workforceSubTotal[]" step="0.01" class="workforceSubTotal" readonly>
-            </div>
-        `;
-        workforceContainer.insertBefore(newRow, addWorkforceBtn);
-        setupWorkforceRow(newRow);
-    });
-
-    // ========== TOTAL GENERAL ========== 
-    const grandTotalInput = document.getElementById('grandTotal');
-
-    function calculateGrandTotal() {
-        const partsTotal = parseFloat(partsTotalInput.value) || 0;
-        const workforceTotal = parseFloat(workforceTotalInput.value) || 0;
-        const grandTotal = partsTotal + workforceTotal;
-        grandTotalInput.value = grandTotal.toFixed(2);
-    }
-});
+                <input
