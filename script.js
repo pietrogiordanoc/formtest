@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const partsContainer = document.querySelector('.parts');
     const addPartButton = document.querySelector('.add-part');
-    const partsTotalInput = document.querySelector('.partsTotal');
+    const partsTotalInput = document.getElementById('partsTotal');
 
     function calculatePartSubtotal(partDiv) {
         const qtInput = partDiv.querySelector('.partQt');
@@ -21,64 +21,60 @@ document.addEventListener('DOMContentLoaded', function() {
         subTotalInputs.forEach(input => {
             total += parseFloat(input.value) || 0;
         });
-        partsTotalInput.value = total.toFixed(2);
+        if (partsTotalInput) {
+            partsTotalInput.value = total.toFixed(2);
+        }
     }
 
     function setupPartRowListeners(partDiv) {
         const qtInput = partDiv.querySelector('.partQt');
         const unitPriceInput = partDiv.querySelector('.partUnitPrice');
 
-        qtInput.addEventListener('input', function() {
+        const recalculate = () => {
             calculatePartSubtotal(partDiv);
             calculatePartsTotal();
-        });
+        };
 
-        unitPriceInput.addEventListener('input', function() {
-            calculatePartSubtotal(partDiv);
-            calculatePartsTotal();
-        });
+        qtInput.addEventListener('input', recalculate);
+        unitPriceInput.addEventListener('input', recalculate);
     }
 
     // Inicializar los listeners para la primera fila de partes
-    const initialPartDiv = partsContainer.querySelector('> div');
+    const initialPartDiv = partsContainer.querySelector('.part-row');
     if (initialPartDiv) {
         setupPartRowListeners(initialPartDiv);
+        calculatePartSubtotal(initialPartDiv);
+        calculatePartsTotal();
     }
 
     // Evento para agregar más partes
-    addPartButton.addEventListener('click', function() {
+    addPartButton.addEventListener('click', function () {
         const newPartDiv = document.createElement('div');
+        newPartDiv.classList.add('part-row');
         newPartDiv.innerHTML = `
             <div>
-                <div>
-                    <label for="partNumber">Part Number:</label>
-                    <input type="text" id="partNumber" name="partNumber[]">
-                </div>
-                <div>
-                    <label for="partDescription">Description:</label>
-                    <input type="text" id="partDescription" name="partDescription[]">
-                </div>
-                <div class="qt-price-row">
-                    <div>
-                        <label for="partQt">Qt:</label>
-                        <input type="number" id="partQt" name="partQt[]" min="0" class="partQt">
-                    </div>
-                    <div>
-                        <label for="partUnitPrice">Unit Price:</label>
-                        <label>$
-                            <input type="number" id="partUnitPrice" name="partUnitPrice[]" step="0.01" class="partUnitPrice">
-                        </label>
-                    </div>
-                </div>
+                <label>Part Number:</label>
+                <input type="text" name="partNumber[]">
             </div>
             <div>
-                <label for="partSubTotal">Sub Total:</label>
-                <label>$
-                    <input type="number" id="partSubTotal" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly>
-                </label>
+                <label>Description:</label>
+                <input type="text" name="partDescription[]">
             </div>
+            <div>
+                <label>Qty:</label>
+                <input type="number" name="partQt[]" min="0" class="partQt" value="0">
+            </div>
+            <div>
+                <label>Unit Price: $</label>
+                <input type="number" name="partUnitPrice[]" step="0.01" class="partUnitPrice" value="0">
+            </div>
+            <div>
+                <label>Sub Total: $</label>
+                <input type="number" name="partSubTotal[]" step="0.01" class="partSubTotal" readonly value="0.00">
+            </div>
+            <hr>
         `;
-        partsContainer.insertBefore(newPartDiv, addPartButton);
+        partsContainer.appendChild(newPartDiv);
         setupPartRowListeners(newPartDiv);
     });
 });
