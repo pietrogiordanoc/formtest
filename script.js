@@ -1,6 +1,5 @@
-<script>
 document.addEventListener('DOMContentLoaded', function () {
-    // ========== PARTS ==========
+    // ========== PARTS ========== 
     const partsContainer = document.querySelector('.parts');
     const addPartButton = document.querySelector('.add-part');
     const partsTotalInput = document.getElementById('partsTotal');
@@ -67,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setupPartListeners(newPartDiv);
     });
 
-    // ========== WORKFORCE ==========
+    // ========== WORKFORCE ========== 
     const workforceContainer = document.querySelector('.workforce');
     const addWorkforceBtn = document.querySelector('.add-workforce');
     const workforceTotalInput = document.getElementById('workforceTotal');
@@ -99,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    const initialWorkforce = workforceContainer;
+    const initialWorkforce = workforceContainer.querySelector('> div');
     if (initialWorkforce) setupWorkforceRow(initialWorkforce);
 
     addWorkforceBtn.addEventListener('click', () => {
@@ -126,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setupWorkforceRow(newRow);
     });
 
-    // ========== GRAND TOTAL ==========
+    // ========== GRAND TOTAL ========== 
     const grandTotalInput = document.getElementById('grandTotal');
 
     function calculateGrandTotal() {
@@ -136,4 +135,3 @@ document.addEventListener('DOMContentLoaded', function () {
         grandTotalInput.value = grandTotal.toFixed(2);
     }
 });
-</script>
